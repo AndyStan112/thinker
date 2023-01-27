@@ -1,6 +1,8 @@
-import Head from "next/head";
-import styled from "styled-components";
-import Navbar from "../Components/Navbar";
+import Head from 'next/head';
+import { getProviders } from 'next-auth/react';
+import styled from 'styled-components';
+import Navbar from '../Components/header/Navbar';
+import LogInCard from '../Components/auth/LogInCard';
 const Wrapper = styled.div`
   height: 100%;
   background-color: beige;
@@ -19,6 +21,8 @@ const Content = styled.div`
 `;
 
 const Home = (props: any) => {
+  // const providers = await getProviders();
+  // console.log('Providers', providers);
   return (
     <>
       <Head>
@@ -27,11 +31,14 @@ const Home = (props: any) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="bg-red-800">
+
+      <LogInCard />
+
+      <div className="">
         <Navbar></Navbar>
         <div className="flex flex-col align-middle">
           <h1>Thinker</h1>
-          <img className="w-20" src="Mascot.png" alt="Mascot" />
+          <img className="w-40" src="Mascot.png" alt="Mascot" />
           <h2>Promotes thinking, not skimping. The future of learning.</h2>
         </div>
       </div>

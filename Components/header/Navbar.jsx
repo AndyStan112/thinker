@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Pages from './Pages';
+import LogInCard from 'Components/auth/LogInCard';
 const Wrapper = styled.div`
   display: flex;
   position: relative;
