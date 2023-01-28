@@ -1,28 +1,13 @@
 import Head from 'next/head';
-import { getProviders } from 'next-auth/react';
 import styled from 'styled-components';
 import Navbar from '../Components/header/Navbar';
 import LogInCard from '../Components/auth/LogInCard';
-const Wrapper = styled.div`
-  height: 100%;
-  background-color: beige;
-`;
-const Content = styled.div`
-  height: 100%;
-  margin-top: 1em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: -1;
-  img {
-    width: 10em;
-    user-select: none;
-  }
-`;
+import { LandingPage } from 'Components/LandingPage';
+import { useSession } from 'next-auth/react';
+import { Session } from 'next-auth';
 
 const Home = (props: any) => {
-  // const providers = await getProviders();
-  // console.log('Providers', providers);
+  const { data: session }: { data: Session | null } = useSession();
   return (
     <>
       <Head>
@@ -34,14 +19,8 @@ const Home = (props: any) => {
 
       <LogInCard />
 
-      <div className="">
-        <Navbar></Navbar>
-        <div className="flex flex-col align-middle">
-          <h1>Thinker</h1>
-          <img className="w-40" src="Mascot.png" alt="Mascot" />
-          <h2>Promotes thinking, not skimping. The future of learning.</h2>
-        </div>
-      </div>
+      <Navbar session={session} />
+      <LandingPage session={session} />
     </>
   );
 };

@@ -2,18 +2,21 @@ import {
   FacebookLoginButton,
   GoogleLoginButton,
   GithubLoginButton,
-  TwitterLoginButton,
 } from 'react-social-login-buttons';
 import InputButton from './InputButton';
 import { useState } from 'react';
+import { signIn, signOut } from 'next-auth/react';
 const style = {
-  height: '7%',
+  height: '10%',
   margin: 'inherit',
   display: 'inherit',
   width: '75%',
 };
+const logIn = (provider) => {
+  signIn(provider, { callbackUrl: 'http://localhost:3000/' });
+};
 const LogInCard = () => {
-  const [shown, changeShown] = useState(true);
+  const [shown, changeShown] = useState(false);
   return !shown ? (
     <></>
   ) : (
@@ -21,6 +24,7 @@ const LogInCard = () => {
       <form className="w-80 h-[27rem]  flex flex-col bg-slate-200 rounded-xl shadow-md justify-center gap-2 items-center">
         <button
           onClick={() => {
+            //signOut({ redirect: false });
             changeShown(false);
           }}
           className=" p-1 absolute self-end w-8 bg-white rounded-full -translate-y-48 mr-2 hover:bg-slate-200 focus:bg-slate-300 focus:border"
@@ -37,18 +41,30 @@ const LogInCard = () => {
           type="submit"
           value="Log in"
         />
-        <FacebookLoginButton style={style} onClick={() => alert('Hello')}>
+        <FacebookLoginButton
+          style={style}
+          onClick={() => {
+            logIn('facebook');
+          }}
+        >
           <span>Sign in with Facebook</span>
         </FacebookLoginButton>
-        <GoogleLoginButton style={style} onClick={() => alert('Hello')}>
+        <GoogleLoginButton
+          style={style}
+          onClick={() => {
+            logIn('google');
+          }}
+        >
           <span>Sign in with Google</span>
         </GoogleLoginButton>
-        <GithubLoginButton style={style} onClick={() => alert('Hello')}>
+        <GithubLoginButton
+          style={style}
+          onClick={() => {
+            logIn('github');
+          }}
+        >
           <span>Sign in with Github</span>
         </GithubLoginButton>
-        <TwitterLoginButton style={style} onClick={() => alert('Hello')}>
-          <span>Sign in with Twitter</span>
-        </TwitterLoginButton>
       </form>
     </div>
   );

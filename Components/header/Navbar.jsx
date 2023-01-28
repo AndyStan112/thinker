@@ -1,68 +1,7 @@
 import styled from 'styled-components';
 import Pages from './Pages';
-import LogInCard from 'Components/auth/LogInCard';
-const Wrapper = styled.div`
-  display: flex;
-  position: relative;
-  background-color: #8446e9ea;
-  width: 100%;
-  z-index: 1;
-  height: 4.5em;
-  p {
-    z-index: 5;
-    user-select: none;
-  }
-  img {
-    z-index: 10;
-  }
-`;
-
-const Progress = styled.div`
-  width: 50em;
-  height: 100%;
-  display: flex;
-  align-items: center;
-`;
-const Avatar = styled.img`
-  margin-left: 1%;
-  height: 80%;
-  object-fit: cover;
-  border-radius: 50%;
-  background-color: cyan;
-`;
-const BarWrapper = styled.div`
-  z-index: inherit;
-  display: flex;
-  font-weight: 500;
-  align-items: center;
-  justify-content: left;
-  height: 40%;
-  width: 65%;
-  translate: -0.3em;
-`;
-const ProgressBar = styled.div`
-  display: flex;
-  font-weight: 500;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(183, 183, 183, 1);
-`;
-const BarSpan = styled.span`
-  background-color: rgba(78, 198, 224, 1);
-  left: 0px;
-  width: 40%;
-  height: 100%;
-  position: absolute;
-`;
-const CurrentXp = styled.p`
-  color: rgba(106, 106, 104, 1);
-`;
-const NeededXp = styled.p`
-  color: #ffff00;
-`;
-const Level = styled.div`
+import { useState } from 'react';
+const p = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,23 +11,35 @@ const Level = styled.div`
   background-color: #6a1515;
   font-weight: 700;
 `;
-export default function Navbar() {
+
+//background-color: rgba(183, 183, 183, 1);
+export default function Navbar({ session }) {
+  const [currExp, setCurrExp] = useState(70);
+  const [nextExp, setNextExp] = useState(158);
   return (
-    <Wrapper>
-      <Progress>
-        <Avatar src="Avatar_1.jpg" draggable="false" />
-        <BarWrapper>
-          <ProgressBar>
-            <BarSpan></BarSpan>
-            <CurrentXp>23/</CurrentXp>
-            <NeededXp>158 XP</NeededXp>
-          </ProgressBar>
-          <Level>
+    <div className="flex w-screen h-16 bg-purple-600 -z-10 [p]:z-10">
+      <div className="flex items-center w-[50em] ml-3">
+        <img
+          className="h-4/5 rounded-3xl z-10"
+          src={session?.user?.image ? session?.user?.image : 'Avatar_1.jpg'}
+        />
+        <div className="flex items-center -translate-x-1 h-2/5 w-3/5">
+          <div className="flex w-full justify-center h-full bg-neutral-400">
+            <div
+              className={`absolute bg-cyan-400 left-0  h-full z-10`}
+              style={{ width: (currExp / nextExp) * 100 + '%' }}
+            ></div>
+            <div className="flex text-center ">
+              <p className="text-gray-700 z-20">23/</p>
+              <p className="text-yel z-20">158 XP</p>
+            </div>
+          </div>
+          <div className="aspect-square h-full bg-yellow-900 text-green-500 flex justify-center font-bold">
             <p>5</p>
-          </Level>
-        </BarWrapper>
-      </Progress>
+          </div>
+        </div>
+      </div>
       <Pages />
-    </Wrapper>
+    </div>
   );
 }

@@ -9,7 +9,11 @@ module.exports = {
     './src/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        yel: '#FFFF33',
+      },
+    },
   },
   plugins: [
     function ({ addVariant }) {

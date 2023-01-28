@@ -19,6 +19,12 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "Components/auth/LogInCard.jsx",
+    "Components/header/Navbar.jsx"
+  ],
   "exclude": ["node_modules"]
 }
