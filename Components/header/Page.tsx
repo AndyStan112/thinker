@@ -1,8 +1,7 @@
-import styled from 'styled-components';
-import { useState } from 'react';
+//import { useState } from 'react';
 
 export default function Page(props) {
-  const [extended, setExtended] = useState(false);
+  //const [extended, setExtended] = useState(false);
   return (
     <button
       className="flex items-center h-4/5"

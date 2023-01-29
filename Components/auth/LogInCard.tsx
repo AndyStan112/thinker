@@ -3,8 +3,7 @@ import {
   GoogleLoginButton,
   GithubLoginButton,
 } from 'react-social-login-buttons';
-import InputButton from './InputButton';
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { signIn, signOut } from 'next-auth/react';
 const style = {
   height: '10%',
@@ -12,30 +11,39 @@ const style = {
   display: 'inherit',
   width: '75%',
 };
-const logIn = (provider) => {
-  signIn(provider, { callbackUrl: 'http://localhost:3000/' });
+const redirectUrl = 'http://localhost:3000/';
+const logIn = (provider, email = undefined) => {
+  email
+    ? signIn(provider, { callbackUrl: redirectUrl }, email)
+    : signIn(provider, { callbackUrl: redirectUrl });
 };
-const LogInCard = () => {
-  const [shown, changeShown] = useState(false);
-  return !shown ? (
-    <></>
-  ) : (
-    <div className="h-screen w-screen fixed flex justify-center items-center bg-gray-400/90 z-10 ">
-      <form className="w-80 h-[27rem]  flex flex-col bg-slate-200 rounded-xl shadow-md justify-center gap-2 items-center">
+const LogInCard = ({ setIsOpen }) => {
+  const { register, handleSubmit } = useForm();
+  return (
+    <div className="h-screen w-screen fixed flex justify-center items-center bg-gray-400/90 z-20 ">
+      <form
+        onSubmit={handleSubmit(({ email }) => {
+          signIn('email', { email, callbackUrl: redirectUrl });
+        })}
+        className="w-80 h-[27rem]  flex flex-col bg-slate-200 rounded-xl shadow-md justify-center gap-2 items-center"
+      >
         <button
           onClick={() => {
             //signOut({ redirect: false });
-            changeShown(false);
+            setIsOpen(false);
           }}
           className=" p-1 absolute self-end w-8 bg-white rounded-full -translate-y-48 mr-2 hover:bg-slate-200 focus:bg-slate-300 focus:border"
         >
           <img src="./close.png" alt="" />
         </button>
-
         <img className="w-1/5" src="/Mascot.png" alt="" />
         <h1>Sign in</h1>
-        <InputButton type="email" placeholder="email" />
-        <InputButton type="password" placeholder="password" />
+        <input
+          className="w-3/4 h-[8%] rounded-md pl-1.5 shadow-md"
+          type="email"
+          {...register('email')}
+          placeholder="email"
+        />
         <input
           className="w-1/4 h-[7%] rounded-xl bg-white shadow-md hover:bg-slate-200 focus:bg-slate-300 focus:border "
           type="submit"

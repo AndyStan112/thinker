@@ -1,18 +1,6 @@
-import styled from 'styled-components';
 import Pages from './Pages';
 import { useState } from 'react';
-const p = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  aspect-ratio: 1/1;
-  color: #0df30d;
-  background-color: #6a1515;
-  font-weight: 700;
-`;
 
-//background-color: rgba(183, 183, 183, 1);
 export default function Navbar({ session }) {
   const [currExp, setCurrExp] = useState(70);
   const [nextExp, setNextExp] = useState(158);

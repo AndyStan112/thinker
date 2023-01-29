@@ -1,12 +1,13 @@
 import Head from 'next/head';
-import styled from 'styled-components';
+import { useState } from 'react';
 import Navbar from '../Components/header/Navbar';
 import LogInCard from '../Components/auth/LogInCard';
 import { LandingPage } from 'Components/LandingPage';
 import { useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
-
+import { signIn, signOut } from 'next-auth/react';
 const Home = (props: any) => {
+  const [isOpen, setIsOpen] = useState(false);
   const { data: session }: { data: Session | null } = useSession();
   return (
     <>
@@ -16,9 +17,21 @@ const Home = (props: any) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <LogInCard />
-
+      <button
+        onClick={() => {
+          setIsOpen(true);
+        }}
+      >
+        asdf
+      </button>
+      <button
+        onClick={() => {
+          signOut();
+        }}
+      >
+        asdf
+      </button>
+      {isOpen && <LogInCard setIsOpen={setIsOpen} />}
       <Navbar session={session} />
       <LandingPage session={session} />
     </>
