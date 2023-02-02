@@ -2,16 +2,16 @@ import {
   FacebookLoginButton,
   GoogleLoginButton,
   GithubLoginButton,
-} from 'react-social-login-buttons';
-import { useForm } from 'react-hook-form';
-import { signIn, signOut } from 'next-auth/react';
+} from "react-social-login-buttons";
+import { useForm } from "react-hook-form";
+import { signIn, signOut } from "next-auth/react";
 const style = {
-  height: '10%',
-  margin: 'inherit',
-  display: 'inherit',
-  width: '75%',
+  height: "10%",
+  margin: "inherit",
+  display: "inherit",
+  width: "75%",
 };
-const redirectUrl = 'http://localhost:3000/';
+const redirectUrl = "https://tigtrx-3000.preview.csb.app/";
 const logIn = (provider, email = undefined) => {
   email
     ? signIn(provider, { callbackUrl: redirectUrl }, email)
@@ -23,7 +23,7 @@ const LogInCard = ({ setIsOpen }) => {
     <div className="h-screen w-screen fixed flex justify-center items-center bg-gray-400/90 z-20 ">
       <form
         onSubmit={handleSubmit(({ email }) => {
-          signIn('email', { email, callbackUrl: redirectUrl });
+          signIn("email", { email, callbackUrl: redirectUrl });
         })}
         className="w-80 h-[27rem]  flex flex-col bg-slate-200 rounded-xl shadow-md justify-center gap-2 items-center"
       >
@@ -41,7 +41,7 @@ const LogInCard = ({ setIsOpen }) => {
         <input
           className="w-3/4 h-[8%] rounded-md pl-1.5 shadow-md"
           type="email"
-          {...register('email')}
+          {...register("email")}
           placeholder="email"
         />
         <input
@@ -52,7 +52,7 @@ const LogInCard = ({ setIsOpen }) => {
         <FacebookLoginButton
           style={style}
           onClick={() => {
-            logIn('facebook');
+            logIn("facebook");
           }}
         >
           <span>Sign in with Facebook</span>
@@ -60,7 +60,7 @@ const LogInCard = ({ setIsOpen }) => {
         <GoogleLoginButton
           style={style}
           onClick={() => {
-            logIn('google');
+            logIn("google");
           }}
         >
           <span>Sign in with Google</span>
@@ -68,7 +68,7 @@ const LogInCard = ({ setIsOpen }) => {
         <GithubLoginButton
           style={style}
           onClick={() => {
-            logIn('github');
+            logIn("github");
           }}
         >
           <span>Sign in with Github</span>
