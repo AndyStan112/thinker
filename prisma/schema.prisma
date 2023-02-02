@@ -46,7 +46,9 @@ model User {
   role          String?   @default("user")
   accounts      Account[]
   sessions      Session[]
-  Stats         Stats[]
+  quests        Quest[]
+  stats         Stats?
+  history       History?
 }
 
 model VerificationToken {
@@ -58,12 +60,34 @@ model VerificationToken {
 }
 
 model Stats {
-  id                 String @id @default(cuid())
-  experience         Int
-  requiredExperience Int
-  level              Int
-  userId             String
-  user               User   @relation(fields: [userId], references: [id])
+  id              String @id @default(cuid())
+  userId          String @unique
+  totalExperience Int    @default(0)
+  level           Int    @default(1)
+  user            User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 
-  @@unique([id, userId])
+model History {
+  id     String @id @default(cuid())
+  userId String @unique
+  source String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Quest {
+  id         String @id @default(cuid())
+  userId     String
+  experience Int
+  title      String
+  tasks      Task[]
+  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Task {
+  id          String @id @default(cuid())
+  title       String
+  description String
+  experience  Int
+  questId     String
+  quest       Quest  @relation(fields: [questId], references: [id], onDelete: Cascade)
 }

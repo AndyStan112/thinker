@@ -5,10 +5,12 @@ import LogInCard from '../Components/auth/LogInCard';
 import { LandingPage } from 'Components/LandingPage';
 import { useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
-import { signIn, signOut } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
+
 const Home = (props: any) => {
   const [isOpen, setIsOpen] = useState(false);
   const { data: session }: { data: Session | null } = useSession();
+
   return (
     <>
       <Head>

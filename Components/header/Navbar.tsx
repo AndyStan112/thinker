@@ -1,9 +1,21 @@
 import Pages from './Pages';
-import { useState } from 'react';
+import { useContext, useEffect } from 'react';
+import { AppContext } from '@/pages/_app';
 
 export default function Navbar({ session }) {
-  const [currExp, setCurrExp] = useState(70);
-  const [nextExp, setNextExp] = useState(158);
+  const {
+    currExp,
+    nextExp,
+    methods: { setCurrExp, setNextExp },
+  } = useContext(AppContext);
+  useEffect(() => {
+    setCurrExp(10);
+    setNextExp(125);
+    setInterval(() => {
+      setCurrExp(currExp + 1);
+    }, 1000);
+    console.log('test');
+  }, []);
   return (
     <div className="flex w-screen h-16 bg-purple-600 -z-10 [p]:z-10">
       <div className="flex items-center w-[50em] ml-3">
@@ -18,8 +30,8 @@ export default function Navbar({ session }) {
               style={{ width: (currExp / nextExp) * 100 + '%' }}
             ></div>
             <div className="flex text-center ">
-              <p className="text-gray-700 z-20">23/</p>
-              <p className="text-yel z-20">158 XP</p>
+              <p className="text-gray-700 z-20">{currExp}/</p>
+              <p className="text-yel z-20">{nextExp} XP</p>
             </div>
           </div>
           <div className="aspect-square h-full bg-yellow-900 text-green-500 flex justify-center font-bold">

@@ -4,7 +4,7 @@ import {
   GithubLoginButton,
 } from 'react-social-login-buttons';
 import { useForm } from 'react-hook-form';
-import { signIn, signOut } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 const style = {
   height: '10%',
   margin: 'inherit',
@@ -48,6 +48,7 @@ const LogInCard = ({ setIsOpen }) => {
           type="submit"
           value="Log in"
         />
+        {/* @ts-ignore */}
         <FacebookLoginButton
           style={style}
           onClick={() => {
@@ -56,6 +57,7 @@ const LogInCard = ({ setIsOpen }) => {
         >
           <span>Sign in with Facebook</span>
         </FacebookLoginButton>
+        {/* @ts-ignore */}
         <GoogleLoginButton
           style={style}
           onClick={() => {
@@ -64,6 +66,7 @@ const LogInCard = ({ setIsOpen }) => {
         >
           <span>Sign in with Google</span>
         </GoogleLoginButton>
+        {/* @ts-ignore */}
         <GithubLoginButton
           style={style}
           onClick={() => {

@@ -1,9 +1,9 @@
-const levelToExperiece = (level) =>
-  10 + 10 * level + Math.floor(20 * level ** 2);
-const test = [1, 2, 3, 4, 5, 10, 11, 15, 20];
+import { signIn } from 'next-auth/react';
 
-export default function handler({ res, req }) {
-  test.forEach((e) => {
-    console.log(e, levelToExperiece(e));
-  });
-}
+export const getTotalExperienceNeeded = (level: number) =>
+  30 * Math.floor(level ** 2.3);
+export const getCurrentExperienceNeeded = (level: number) =>
+  getTotalExperienceNeeded(level) - getTotalExperienceNeeded(level - 1);
+export const getCurrentExperiece = (level: number, totalExperience: number) => {
+  totalExperience - getTotalExperienceNeeded(level - 1);
+};
