@@ -1,14 +1,32 @@
-import Head from 'next/head';
-import { useState } from 'react';
-import Navbar from '../Components/header/Navbar';
-import LogInCard from '../Components/auth/LogInCard';
-import { LandingPage } from 'Components/LandingPage';
-import { useSession } from 'next-auth/react';
-import { Session } from 'next-auth';
-import { signIn, signOut } from 'next-auth/react';
+import Head from "next/head";
+import { useState } from "react";
+import Navbar from "../Components/header/Navbar";
+import LogInCard from "../Components/auth/LogInCard";
+import { LandingPage } from "Components/LandingPage";
+import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
+import { signOut } from "next-auth/react";
+import { PrismaClient } from "@prisma/client";
+//const prisma = new PrismaClient();
+const getTotalExperieceNeeded = (level) => 30 * Math.floor(level ** 2.4);
+const getCurrentExperieceNeeded = (level) =>
+  getTotalExperieceNeeded(level) - getTotalExperieceNeeded(level - 1);
+const getCurrentExperiece = (level, totalExperience) => {
+  totalExperience - getTotalExperieceNeeded(level - 1);
+};
+const getStats = async () => {
+  const userId = "kghkh";
+};
+function useExperience() {
+  const [currExp, setCurrExp] = useState(70);
+  const [nextExp, setNextExp] = useState(158);
+
+  return [currExp, nextExp];
+}
 const Home = (props: any) => {
   const [isOpen, setIsOpen] = useState(false);
   const { data: session }: { data: Session | null } = useSession();
+  const [currExp, nextExp] = useExperience();
   return (
     <>
       <Head>
@@ -32,7 +50,7 @@ const Home = (props: any) => {
         asdf
       </button>
       {isOpen && <LogInCard setIsOpen={setIsOpen} />}
-      <Navbar session={session} />
+      <Navbar session={session} nextExp={nextExp} currExp={currExp} />
       <LandingPage session={session} />
     </>
   );
