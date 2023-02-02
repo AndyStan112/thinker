@@ -7,7 +7,6 @@ export const LandingPage = ({ session }) => {
       <h2>Promoting thinking, not skimping. The future of learning.</h2>
       <h2>Thinker is the best tool to make learning fun by gamification</h2>
       <img className="w-40" src="Mascot.png" alt="Mascot" />
-      {/* <img src={session?.user?.image || ''} alt="" /> */}
       <h2>{session ? session.user?.email : 'ghinion'}</h2>
       <h2>{session ? session.user?.role : 'ghinionut'}</h2>
     </div>

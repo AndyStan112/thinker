@@ -29,7 +29,6 @@ const LogInCard = ({ setIsOpen }) => {
       >
         <button
           onClick={() => {
-            //signOut({ redirect: false });
             setIsOpen(false);
           }}
           className=" p-1 absolute self-end w-8 bg-white rounded-full -translate-y-48 mr-2 hover:bg-slate-200 focus:bg-slate-300 focus:border"

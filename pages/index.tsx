@@ -17,23 +17,26 @@ const Home = (props: any) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      {isOpen && <LogInCard setIsOpen={setIsOpen} />}
+      <Navbar session={session} />
+      <LandingPage session={session} />
       <button
+        className="bg-slate-500 rounded-md"
         onClick={() => {
           setIsOpen(true);
         }}
       >
-        asdf
+        Log in
       </button>
       <button
+        className="bg-slate-500 rounded-md ml-10"
         onClick={() => {
           signOut();
         }}
       >
-        asdf
+        Log out
       </button>
-      {isOpen && <LogInCard setIsOpen={setIsOpen} />}
-      <Navbar session={session} />
-      <LandingPage session={session} />
     </>
   );
 };

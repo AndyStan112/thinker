@@ -46,6 +46,7 @@ model User {
   role          String?   @default("user")
   accounts      Account[]
   sessions      Session[]
+  Stats         Stats[]
 }
 
 model VerificationToken {
@@ -54,4 +55,15 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Stats {
+  id                 String @id @default(cuid())
+  experience         Int
+  requiredExperience Int
+  level              Int
+  userId             String
+  user               User   @relation(fields: [userId], references: [id])
+
+  @@unique([id, userId])
 }
