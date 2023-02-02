@@ -8,14 +8,21 @@ export default function Navbar({ session }) {
     nextExp,
     methods: { setCurrExp, setNextExp },
   } = useContext(AppContext);
+
   useEffect(() => {
-    setCurrExp(10);
-    setNextExp(125);
-    setInterval(() => {
-      setCurrExp(currExp + 1);
-    }, 1000);
-    console.log('test');
+    if (!session) return;
+    fetch('/api/experience/get/a')
+      .then((r) =>
+        r.json().then(({ nextExp, curExp }) => {
+          setNextExp(nextExp || 1);
+          setCurrExp(curExp || 1);
+        }),
+      )
+      .catch(console.log);
+
+    return () => {};
   }, []);
+
   return (
     <div className="flex w-screen h-16 bg-purple-600 -z-10 [p]:z-10">
       <div className="flex items-center w-[50em] ml-3">
