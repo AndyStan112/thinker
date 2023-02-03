@@ -1,10 +1,10 @@
-import NextAuth from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
-import GithubProvider from 'next-auth/providers/github';
-import FacebookProvider from 'next-auth/providers/facebook';
-import EmailProvider from 'next-auth/providers/email';
-import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import prisma from '../../../lib/prismadb';
+import NextAuth from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import GithubProvider from "next-auth/providers/github";
+import FacebookProvider from "next-auth/providers/facebook";
+import EmailProvider from "next-auth/providers/email";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import prisma from "../../../lib/prismadb";
 const handleLink = async (user, profile, prop) => {
   console.log(prop);
   console.log(profile[prop]);
@@ -19,14 +19,15 @@ export default NextAuth({
   adapter: PrismaAdapter(prisma),
   callbacks: {
     async session({ session, token, user }) {
+      session.user.id = user.id;
       session.user.role = user.role;
       return session;
     },
   },
   events: {
     async linkAccount({ user, profile }) {
-      handleLink(user, profile, 'image');
-      handleLink(user, profile, 'name');
+      handleLink(user, profile, "image");
+      handleLink(user, profile, "name");
     },
   },
   providers: [
