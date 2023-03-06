@@ -1,6 +1,7 @@
 import Pages from './Pages';
 import { useContext, useEffect } from 'react';
 import { AppContext } from '@/pages/_app';
+import { Session } from 'next-auth';
 
 export default function Navbar({ session }) {
   if (!session) return <></>;
