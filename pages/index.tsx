@@ -35,8 +35,8 @@ const Home = (props: any) => {
       <button
         className="bg-slate-500 rounded-md ml-10"
         onClick={() => {
-          setCurrExp(1);
-          setNextExp(1);
+          setCurrExp(0);
+          setNextExp(0);
           signOut();
         }}
       >

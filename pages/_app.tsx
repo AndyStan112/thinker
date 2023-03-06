@@ -8,11 +8,17 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps) {
-  const [currExp, setCurrExp] = useState(1);
-  const [nextExp, setNextExp] = useState(1);
+  const [currExp, setCurrExp] = useState(0);
+  const [nextExp, setNextExp] = useState(0);
+  const [level, setLevel] = useState(0);
   return (
     <AppContext.Provider
-      value={{ currExp, nextExp, methods: { setNextExp, setCurrExp } }}
+      value={{
+        currExp,
+        nextExp,
+        level,
+        methods: { setNextExp, setCurrExp, setLevel },
+      }}
     >
       <SessionProvider session={session}>
         <Component {...pageProps} />

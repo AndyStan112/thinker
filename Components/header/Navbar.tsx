@@ -3,25 +3,24 @@ import { useContext, useEffect } from 'react';
 import { AppContext } from '@/pages/_app';
 
 export default function Navbar({ session }) {
+  if (!session) return <></>;
   const {
     currExp,
     nextExp,
-    methods: { setCurrExp, setNextExp },
+    level,
+    methods: { setCurrExp, setNextExp, setLevel },
   } = useContext(AppContext);
-
-  useEffect(() => {
-    if (!session) return;
-    fetch('/api/experience/get/a')
-      .then((r) =>
-        r.json().then(({ nextExp, curExp }) => {
-          setNextExp(nextExp || 1);
-          setCurrExp(curExp || 1);
-        }),
-      )
-      .catch(console.log);
-
-    return () => {};
-  }, []);
+  console.log(session, 'a');
+  fetch('/api/experience/get/' + session.id)
+    .then((r) =>
+      r.json().then(({ nextExp, curExp, level }) => {
+        setNextExp(nextExp || 0);
+        setCurrExp(curExp || 0);
+        setLevel(level || 0);
+        console.log(nextExp, curExp);
+      }),
+    )
+    .catch((e) => console.log(e));
 
   return (
     <div className="flex w-screen h-16 bg-purple-600 -z-10 [p]:z-10">
@@ -42,7 +41,7 @@ export default function Navbar({ session }) {
             </div>
           </div>
           <div className="aspect-square h-full bg-yellow-900 text-green-500 flex justify-center font-bold">
-            <p>5</p>
+            <p>{level}</p>
           </div>
         </div>
       </div>

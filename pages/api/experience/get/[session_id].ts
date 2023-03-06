@@ -14,6 +14,7 @@ const getStats = async (id: string) => {
   return {
     curExp: getCurrentExperiece(level, totalExperience),
     nextExp: getCurrentExperienceNeeded(level),
+    level: level,
   };
 };
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

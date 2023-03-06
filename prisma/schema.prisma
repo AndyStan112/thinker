@@ -10,6 +10,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -49,6 +54,8 @@ model User {
   quests        Quest[]
   stats         Stats?
   history       History?
+  Deck          Deck[]
+  Card          Card[]
 }
 
 model VerificationToken {
@@ -67,27 +74,70 @@ model Stats {
   user            User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+enum SourceType {
+  deck
+  task
+}
+
 model History {
-  id     String @id @default(cuid())
-  userId String @unique
-  source String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id         String     @id @default(cuid())
+  userId     String     @unique
+  source     String
+  sourceType SourceType
+  date       DateTime   @default(now())
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Quest {
-  id         String @id @default(cuid())
-  userId     String
-  experience Int
-  title      String
-  tasks      Task[]
-  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String @id @default(cuid())
+  userId String
+  title  String
+  tasks  Task[]
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Task {
-  id          String @id @default(cuid())
+  id          String  @id @default(cuid())
   title       String
   description String
   experience  Int
+  finished    Boolean
   questId     String
-  quest       Quest  @relation(fields: [questId], references: [id], onDelete: Cascade)
+  quest       Quest   @relation(fields: [questId], references: [id], onDelete: Cascade)
+}
+
+model Subject {
+  id    String @id @default(cuid())
+  name  String
+  decks Deck[]
+}
+
+model Deck {
+  id          String    @id @default(cuid())
+  title       String
+  description String
+  experience  Int
+  userId      String
+  subjects    Subject[]
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Card {
+  id           String   @id @default(cuid())
+  title        String
+  content      String
+  type         CardType
+  answer       String?
+  experience   Int
+  timesShown   Int
+  timesCorrect Int
+  userId       String
+  subjectId    String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum CardType {
+  Question
+  Flashcard
+  MultipleChoice
 }

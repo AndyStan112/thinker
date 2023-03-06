@@ -1,6 +1,8 @@
 import React from 'react';
 
 export const LandingPage = ({ session }) => {
+  console.log(session, 'b');
+
   return (
     <div className="flex flex-col align-middle">
       <h1>Thinker</h1>
