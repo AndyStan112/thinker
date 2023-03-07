@@ -3,26 +3,28 @@ import { useContext, useEffect } from 'react';
 import { AppContext } from '@/pages/_app';
 import { Session } from 'next-auth';
 import { useSession } from 'next-auth/react';
+import { useAtom } from 'jotai';
+import { currExpAtom, nextExpAtom, levelAtom } from '@/lib/atoms';
 export default function Navbar() {
   const { data: session }: { data: Session | null } = useSession();
+  const [currExp, setCurrExp] = useAtom(currExpAtom);
+  const [nextExp, setNextExp] = useAtom(nextExpAtom);
+  const [level, setLevel] = useAtom(levelAtom);
+  useEffect(() => {
+    if (session)
+      fetch('/api/experience/get/' + session.id)
+        .then((r) =>
+          r.json().then(({ nextExp, curExp, level }) => {
+            setNextExp(nextExp || 0);
+            setCurrExp(curExp || 0);
+            setLevel(level || 0);
+            console.log(nextExp, curExp);
+          }),
+        )
+        .catch((e) => console.log(e));
+  }, [session]);
   if (!session) return <></>;
-  const {
-    currExp,
-    nextExp,
-    level,
-    methods: { setCurrExp, setNextExp, setLevel },
-  } = useContext(AppContext);
   console.log(session, 'a');
-  fetch('/api/experience/get/' + session.id)
-    .then((r) =>
-      r.json().then(({ nextExp, curExp, level }) => {
-        setNextExp(nextExp || 0);
-        setCurrExp(curExp || 0);
-        setLevel(level || 0);
-        console.log(nextExp, curExp);
-      }),
-    )
-    .catch((e) => console.log(e));
 
   return (
     <div className="flex w-screen h-16 bg-purple-600 -z-10 [p]:z-10">

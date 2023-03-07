@@ -5,14 +5,15 @@ import LogInCard from '../Components/auth/LogInCard';
 import { LandingPage } from 'Components/LandingPage';
 import { useSession, signOut } from 'next-auth/react';
 import { Session } from 'next-auth';
-import { AppContext } from './_app';
+import { useSetAtom } from 'jotai';
+import { currExpAtom, nextExpAtom, levelAtom } from '@/lib/atoms';
 
 const Home = (props: any) => {
   const [isOpen, setIsOpen] = useState(false);
   const { data: session }: { data: Session | null } = useSession();
-  const {
-    methods: { setCurrExp, setNextExp },
-  } = useContext(AppContext);
+  const setCurrExp = useSetAtom(currExpAtom);
+  const setNextExp = useSetAtom(nextExpAtom);
+  const setLevel = useSetAtom(levelAtom);
   return (
     <>
       <Head>
@@ -37,6 +38,7 @@ const Home = (props: any) => {
         onClick={() => {
           setCurrExp(0);
           setNextExp(0);
+          setLevel(0);
           signOut();
         }}
       >
