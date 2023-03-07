@@ -2,8 +2,9 @@ import Pages from './Pages';
 import { useContext, useEffect } from 'react';
 import { AppContext } from '@/pages/_app';
 import { Session } from 'next-auth';
-
-export default function Navbar({ session }) {
+import { useSession } from 'next-auth/react';
+export default function Navbar() {
+  const { data: session }: { data: Session | null } = useSession();
   if (!session) return <></>;
   const {
     currExp,

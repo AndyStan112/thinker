@@ -22,7 +22,7 @@ const Home = (props: any) => {
       </Head>
 
       {isOpen && <LogInCard setIsOpen={setIsOpen} />}
-      <Navbar session={session} />
+      <Navbar />
       <LandingPage session={session} />
       <button
         className="bg-slate-500 rounded-md"
