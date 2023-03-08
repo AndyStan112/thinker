@@ -1,6 +1,5 @@
 import Pages from './Pages';
-import { useContext, useEffect } from 'react';
-import { AppContext } from '@/pages/_app';
+import { useEffect } from 'react';
 import { Session } from 'next-auth';
 import { useSession } from 'next-auth/react';
 import { useAtom } from 'jotai';
@@ -14,15 +13,15 @@ export default function Navbar() {
     if (session)
       fetch('/api/experience/get/' + session.id)
         .then((r) =>
-          r.json().then(({ nextExp, curExp, level }) => {
+          r.json().then(({ nextExp, currExp, level }) => {
             setNextExp(nextExp || 0);
-            setCurrExp(curExp || 0);
+            setCurrExp(currExp || 0);
             setLevel(level || 0);
-            console.log(nextExp, curExp);
+            console.log(nextExp, currExp);
           }),
         )
         .catch((e) => console.log(e));
-  }, [session]);
+  }, [session, currExp]);
   if (!session) return <></>;
   console.log(session, 'a');
 

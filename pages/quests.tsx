@@ -1,20 +1,37 @@
 import Navbar from '@/Components/header/Navbar';
-import { useState, memo, useEffect } from 'react';
-import { Accordion } from 'flowbite-react';
+import { useState, useMemo, useEffect } from 'react';
+import { useAtom } from 'jotai';
+import { currExpAtom } from '@/lib/atoms';
 import { useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
-import { Prisma } from '@prisma/client';
-import { Dispatch, SetStateAction } from 'react';
 const Task = ({ show, task, getQuests }) => {
   const [open, setOpen] = useState(false);
-
+  const { data: session }: { data: Session | null } = useSession();
+  const [currExp, setCurrExp] = useAtom(currExpAtom);
   return show ? (
     <div className="flex flex-col border-y-2 border-amber-200 pl-4 ml-2">
       <div className="flex items-center border-2 hover:border-sky-200">
-        <input
-          type="checkbox"
-          className="form-tick appearance-none bg-white bg-check h-6 w-6 border border-gray-300 rounded-md checked:bg-blue-500 checked:border-transparent focus:outline-none"
-        />
+        <img
+          className={'h-4/6 ' + (task.finished ? 'pointer-events-none' : '')}
+          onClick={() => {
+            fetch('/api/experience/post/' + session.id, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                id: task.id,
+                type: 'task',
+                title: task.title,
+                experience: task.experience,
+              }),
+            })
+              .then(() => getQuests())
+              .then(() => setCurrExp(currExp + task.experience))
+              .catch((e) => console.log(e));
+          }}
+          src={task.finished ? 'check_box.svg' : 'check_box_blank.svg'}
+        ></img>
         <button
           className="flex items-center w-full ml-1"
           onClick={() => {
@@ -22,13 +39,23 @@ const Task = ({ show, task, getQuests }) => {
           }}
         >
           {task.title}
+          <p
+            className={
+              'ml-auto ' +
+              (task.finished ? 'text-emerald-700' : 'text-slate-500')
+            }
+          >
+            {task.experience} exp
+          </p>
           <img
-            className="ml-auto"
+            className=""
             src={open ? 'expand_less.svg' : 'expand_more.svg'}
           ></img>
         </button>
       </div>
-      <div className={'ml-4 ' + (!open ? 'hidden' : 'inline')}>sdm;</div>
+      <div className={'ml-4 ' + (!open ? 'hidden' : 'inline')}>
+        {task.description}
+      </div>
     </div>
   ) : (
     <></>
@@ -36,11 +63,26 @@ const Task = ({ show, task, getQuests }) => {
 };
 const Quest = ({ title, tasks, getQuests }) => {
   const [open, setOpen] = useState(false);
+  //console.log(tasks);
   const finished = tasks.every((task) => task.finished);
+  const currExp: number = useMemo(
+    () =>
+      tasks
+        .filter((task) => task.finished)
+        .reduce((acc, task) => acc + task.experience, 0),
+    [tasks],
+  );
+  const totalExp: number = useMemo(
+    () => tasks.reduce((acc, task) => acc + task.experience, 0),
+    [tasks],
+  );
   return (
     <div className="flex flex-col  pl-2">
-      <div className="flex items-center border-2 hover:border-sky-200 pointer-events-none">
-        <img src={finished ? 'check_box.svg' : 'check_box_empty.svg'}></img>
+      <div className="flex items-center border-2 hover:border-sky-200 ">
+        <img
+          className="h-4/5"
+          src={finished ? 'check_box.svg' : 'check_box_blank.svg'}
+        ></img>
         <button
           className="flex items-center w-full ml-1"
           onClick={() => {
@@ -53,8 +95,7 @@ const Quest = ({ title, tasks, getQuests }) => {
               'ml-auto ' + (finished ? 'text-emerald-700' : 'text-slate-500')
             }
           >
-            {' '}
-            23/45 exp
+            {currExp}/{totalExp} exp
           </p>
           <img
             className=""
@@ -64,7 +105,7 @@ const Quest = ({ title, tasks, getQuests }) => {
       </div>
       {tasks ? (
         tasks.map((task) => (
-          <Task show={open} task={task} getQuests={getQuests} />
+          <Task key={task.id} show={open} task={task} getQuests={getQuests} />
         ))
       ) : (
         <></>
@@ -94,23 +135,30 @@ const Quests = (props: any) => {
   return (
     <>
       <Navbar />
-      <div className="flex justify-center">
-        <div className="flex flex-col w-1/2 bg-slate-200 rounded-lg shadow-md mt-4  ">
+      <div className="flex justify-center mt-4">
+        <div className="flex flex-col w-1/2 bg-slate-200 rounded-lg shadow-md  ">
           {quests ? (
             quests.map((quest) => (
               <Quest
                 title={quest.title}
                 tasks={quest.tasks}
+                key={quest.id}
                 getQuests={getQuests}
               />
             ))
           ) : (
-            <></>
+            <p>
+              Nu ai niciun quest.Apasă butonul din dreapta pentru a crea un
+              quest nou.
+            </p>
           )}
         </div>
+        <button className="ml-2 flex">
+          <img src="add_quest.svg"></img>
+        </button>
       </div>
     </>
   );
 };
 
-export default memo(Quests);
+export default Quests;

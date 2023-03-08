@@ -1,19 +1,14 @@
 import Head from 'next/head';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import Navbar from '../Components/header/Navbar';
 import LogInCard from '../Components/auth/LogInCard';
-import { LandingPage } from 'Components/LandingPage';
+import { Carousel } from 'flowbite-react';
 import { useSession, signOut } from 'next-auth/react';
 import { Session } from 'next-auth';
-import { useSetAtom } from 'jotai';
-import { currExpAtom, nextExpAtom, levelAtom } from '@/lib/atoms';
 
 const Home = (props: any) => {
   const [isOpen, setIsOpen] = useState(false);
   const { data: session }: { data: Session | null } = useSession();
-  const setCurrExp = useSetAtom(currExpAtom);
-  const setNextExp = useSetAtom(nextExpAtom);
-  const setLevel = useSetAtom(levelAtom);
   return (
     <>
       <Head>
@@ -24,26 +19,24 @@ const Home = (props: any) => {
 
       {isOpen && <LogInCard setIsOpen={setIsOpen} />}
       <Navbar />
-      <LandingPage session={session} />
-      <button
-        className="bg-slate-500 rounded-md"
-        onClick={() => {
-          setIsOpen(true);
-        }}
-      >
-        Log in
-      </button>
-      <button
-        className="bg-slate-500 rounded-md ml-10"
-        onClick={() => {
-          setCurrExp(0);
-          setNextExp(0);
-          setLevel(0);
-          signOut();
-        }}
-      >
-        Log out
-      </button>
+      <div className="flex justify-center">
+        <div className="flex flex-col items-center justify-center mt-2 bg-slate-300 w-fit p-3 gap-2 rounded-xl">
+          <h1>Thinker</h1>
+          <h2>Promoting thinking, not skimping. The future of learning.</h2>
+          <h2>Thinker is the best tool to make learning fun by gamification</h2>
+          <img className="w-40" src="Mascot.png" alt="Mascot" />
+          <div className="flex">
+            <button
+              className="bg-slate-100 rounded-md mb-2 p-1"
+              onClick={() => {
+                setIsOpen(true);
+              }}
+            >
+              Sign up now
+            </button>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

@@ -42,6 +42,7 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+//repair casing
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -53,7 +54,7 @@ model User {
   sessions      Session[]
   quests        Quest[]
   stats         Stats?
-  history       History?
+  history       History[]
   Deck          Deck[]
   Card          Card[]
 }
@@ -81,7 +82,7 @@ enum SourceType {
 
 model History {
   id         String     @id @default(cuid())
-  userId     String     @unique
+  userId     String
   source     String
   sourceType SourceType
   date       DateTime   @default(now())
