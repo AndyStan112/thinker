@@ -12,6 +12,7 @@ const getStats = async (userId: string) => {
     where: { userId: userId },
   });
   return {
+    totalExperience: totalExperience,
     currExp: getCurrentExperiece(level, totalExperience),
     nextExp: getCurrentExperienceNeeded(level),
     level: level,

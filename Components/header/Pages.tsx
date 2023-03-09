@@ -25,7 +25,7 @@ export default function Pages() {
       <Page text="Quests" img="quests.png" link="quests" />
       <Page text="History" img="history.png" link="history" />
       <Page text="Decks" img="decks.png" link="quests" />
-      <Page text="Statistics" img="stats.png" link="quests" />
+      <Page text="Statistics" img="stats.png" link="stats" />
     </div>
   );
 }

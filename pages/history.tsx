@@ -12,16 +12,22 @@ const History = () => {
         .then((r) =>
           r.json().then((events) => {
             setEvents(events);
-            console.log(events);
           }),
         )
         .catch((e) => console.log(e));
   }, [session]);
   if (!session) return <></>;
+
   return (
     <>
       <Navbar></Navbar>
+
       <div className="flex justify-center mt-4 w-4/5">
+        {!events.length ? (
+          <p className="bg-slate-300 rounded-xl p-3">Istoricul este gol</p>
+        ) : (
+          <></>
+        )}
         <Timeline>
           {events ? (
             events.map((event) => {
