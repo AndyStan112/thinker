@@ -1,42 +1,40 @@
-import { useSession } from 'next-auth/react';
-import { Session } from 'next-auth';
-import { Table } from 'flowbite-react';
-import { DateRangePicker } from 'react-date-range';
-import { useEffect, useState } from 'react';
-import Navbar from '@/Components/header/Navbar';
-import 'react-date-range/dist/styles.css'; // main style file
-import 'react-date-range/dist/theme/default.css'; // theme css file
+import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
+import { DateRangePicker } from "react-date-range";
+import { useEffect, useState } from "react";
+import Navbar from "@/Components/header/Navbar";
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css"; // theme css file
 const Stats = () => {
   const { data: session }: { data: Session | null } = useSession();
   const [events, setEvents] = useState([]);
   const [totalExperience, setTotalExperience] = useState(0);
   useEffect(() => {
     if (session)
-      fetch('/api/history/get/' + session.id)
-        .then((r) =>
-          r.json().then((events) => {
-            setEvents(events);
-          }),
-        )
+      fetch("/api/history/get/" + session.id)
+        .then((r) => r.json())
+        .then((events) => {
+          setEvents(events);
+        })
+
         .then(() => {
-          fetch('/api/experience/get/' + session.id).then((r) =>
-            r
-              .json()
-              .then((stats) => {
-                setTotalExperience(stats.totalExperience);
-              })
-              .catch((e) => console.log(e)),
-          );
+          fetch("/api/experience/get/" + session.id)
+            .then((r) => r.json())
+            .then((stats) => {
+              setTotalExperience(stats.totalExperience);
+            })
+            .catch((e) => console.log(e));
         })
         .catch((e) => console.log(e));
   }, [session]);
   if (!session) return <></>;
   const totalTasks = events.filter(
-    (event) => event.sourceType == 'task',
+    (event) => event.sourceType == "task"
   ).length;
   const totalDecks = events.filter(
-    (event) => event.sourceType == 'deck',
+    (event) => event.sourceType == "deck"
   ).length;
+  // const comp = events.reduce((acc,curr)=>acc+curr.experience,0)
   return (
     <>
       <Navbar></Navbar>
@@ -44,7 +42,7 @@ const Stats = () => {
         <div className="flex flex-col">
           <DateRangePicker
             ranges={[
-              { startDate: new Date(), endDate: new Date(), key: 'selection' },
+              { startDate: new Date(), endDate: new Date(), key: "selection" },
             ]}
             onChange={() => {}}
           />
