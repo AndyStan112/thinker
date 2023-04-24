@@ -1,6 +1,14 @@
-export const getTotalExperienceNeeded = (level: number) =>
-  30 * Math.floor(level ** 2.3);
-export const getCurrentExperienceNeeded = (level: number) =>
-  getTotalExperienceNeeded(level) - getTotalExperienceNeeded(level - 1);
-export const getCurrentExperiece = (level: number, totalExperience: number) =>
-  totalExperience - getTotalExperienceNeeded(level - 1);
+import { levelToExp } from "./constants";
+export const getTotalExperienceNeeded = (level: number) => levelToExp[level];
+export const getCurrentExperienceNeeded = (totalExperience: number) => {
+  const level = getLevel(totalExperience);
+  return level ? levelToExp[level] - levelToExp[level - 1] : levelToExp[0];
+};
+export const getCurrentExperiece = (totalExperience: number) => {
+  const level = getLevel(totalExperience);
+  return totalExperience - getTotalExperienceNeeded(level - 1);
+};
+export const getLevel = (totalExperience: number) =>
+  levelToExp.findIndex((experience) => experience > totalExperience);
+
+//const getTotalExperienceNeeded = (level) => 15 +25 * Math.floor(level ** 2);

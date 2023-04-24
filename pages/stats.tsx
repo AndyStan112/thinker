@@ -21,7 +21,7 @@ const Stats = () => {
           fetch("/api/experience/get/" + session.id)
             .then((r) => r.json())
             .then((stats) => {
-              setTotalExperience(stats.totalExperience);
+              setTotalExperience(stats.experience);
             })
             .catch((e) => console.log(e));
         })
