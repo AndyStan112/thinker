@@ -103,7 +103,7 @@ model Task {
   title       String
   description String
   experience  Int
-  finished    Boolean
+  finished    Boolean @default(false)
   questId     String
   quest       Quest   @relation(fields: [questId], references: [id], onDelete: Cascade)
 }
