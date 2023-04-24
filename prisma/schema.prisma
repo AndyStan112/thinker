@@ -54,7 +54,6 @@ model User {
   accounts      Account[]
   sessions      Session[]
   quests        Quest[]
-  stats         Stats?
   history       History[]
   Deck          Deck[]
   Card          Card[]
@@ -66,14 +65,6 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
-}
-
-model Stats {
-  id              String @id @default(cuid())
-  userId          String @unique
-  totalExperience Int    @default(0)
-  level           Int    @default(1)
-  user            User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum SourceType {
