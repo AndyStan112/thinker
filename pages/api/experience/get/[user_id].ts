@@ -1,11 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-import {
-  getCurrentExperiece,
-  getCurrentExperienceNeeded,
-} from "../../../../lib/util";
+import prisma from "../../../../lib/prismadb";
 import { NextApiRequest, NextApiResponse } from "next";
-
-const prisma = new PrismaClient();
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
