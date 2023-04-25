@@ -23,7 +23,6 @@ export default function Navbar() {
         )
         .catch((e) => console.log(e));
   }, [session]);
-  console.log(session, "a");
 
   return (
     <div className="flex w-screen h-16 bg-purple-600 -z-10 [p]:z-10">
