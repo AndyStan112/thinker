@@ -1,9 +1,5 @@
-import { PrismaClient } from '@prisma/client';
-
-import { NextApiRequest, NextApiResponse } from 'next';
-
-const prisma = new PrismaClient();
-
+import prisma from "../../../../lib/prismadb";
+import { NextApiRequest, NextApiResponse } from "next";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const user_id = req.query.user_id as string;
