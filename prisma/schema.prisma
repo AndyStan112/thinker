@@ -82,11 +82,13 @@ model History {
 }
 
 model Quest {
-  id     String @id @default(cuid())
-  userId String
-  title  String
-  tasks  Task[]
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id         String  @id @default(cuid())
+  userId     String
+  title      String
+  experience Int     @default(0)
+  finished   Boolean @default(false)
+  tasks      Task[]
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Task {

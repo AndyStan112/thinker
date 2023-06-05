@@ -49,7 +49,7 @@ const Task: FC<{
               "ml-auto " + (finished ? "text-emerald-700" : "text-slate-500")
             }
           >
-            {task.experience} exp
+            +{task.experience} exp
           </p>
           <img
             className=""
