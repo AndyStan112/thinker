@@ -19,7 +19,8 @@ const Quest: FC<{
     () =>
       quest.tasks
         .filter((task) => task.finished)
-        .reduce((acc, task) => acc + task.experience, 0),
+        .reduce((acc, task) => acc + task.experience, 0) +
+      (finished ? quest.experience : 0),
     [quest]
   );
   const totalQuestExp: number = useMemo(

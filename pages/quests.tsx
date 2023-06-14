@@ -2,13 +2,14 @@ import Navbar from "@/Components/header/Navbar";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
-import { Toast, Alert } from "flowbite-react";
+import { Toast } from "flowbite-react";
 import { GoAlert } from "react-icons/go";
 import Quest from "@/Components/quests/quest";
 const Quests = (props: any) => {
   const { data: session }: { data: Session } = useSession();
   const [quests, setQuests] = useState([]);
   const [incompleteError, setIncompleteError] = useState(false);
+  const [showAdd, setShowAdd] = useState(true);
   const getQuests = async () => {
     await fetch("/api/quests/get/" + session.id)
       .then((r) =>
@@ -41,6 +42,9 @@ const Quests = (props: any) => {
             }}
           />
         </Toast>
+      )}
+      {showAdd && (
+        <div className="absolute left-1/2 -translate-x-1/2 bg-red-500"></div>
       )}
       <div className=" absolute top-1/5 left-1/2 transform -translate-x-1/2  divide-gray-200 dark:divide-gray-700 "></div>
       <div className="flex justify-center mt-4">

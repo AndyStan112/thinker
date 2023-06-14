@@ -70,6 +70,7 @@ model VerificationToken {
 enum SourceType {
   deck
   task
+  quest
 }
 
 model History {
