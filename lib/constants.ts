@@ -5,4 +5,4 @@ export const levelToExp = [
   34240, 36115, 38040, 40015, 42040, 44115, 46240, 48415, 50640, 52915, 55240,
   57615, 60040, 62515,
 ];
-export const diff = ["very easy", "easy", "medium", "hard", "very hard"];
+export const diff = ["Trivial", "Easy", "Medium", "Hard", "Insane"];

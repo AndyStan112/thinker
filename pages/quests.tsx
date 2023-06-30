@@ -46,7 +46,11 @@ const Quests = (props: any) => {
       )}
       {showAdd && (
         <div className="absolute left-1/2 -translate-x-1/2 w-1/4 mt-8 bg-violet-800 rounded-lg">
-          <AddQuest sessionId={session.id} getQuests={getQuests}></AddQuest>
+          <AddQuest
+            sessionId={session.id}
+            getQuests={getQuests}
+            setShowAdd={setShowAdd}
+          ></AddQuest>
         </div>
       )}
       <div className="flex flex-col items-center my-2">

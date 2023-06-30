@@ -16,7 +16,7 @@ const Task: FC<{
     <div className="flex flex-col border-b-2 border-l-[12px] border-fuchsia-700 pl-4  hover:border-t-2 hover:border-r-2 hover:border-solid  hover:border-purple-900">
       <div className="flex items-center border-none border-2 hover:border-solid  hover:border-sky-800 ">
         <img
-          className={"h-4/6 " + (finished ? "pointer-events-none" : "")}
+          className={"h-9 " + (finished ? "pointer-events-none" : "")}
           onClick={async () => {
             setTotalExperience(totalExperience + task.experience);
             setFinished(true);

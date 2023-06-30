@@ -34,12 +34,13 @@ const Quest: FC<{
       <div className="flex flex-col  ">
         <div className="flex items-center   border-b-2 border-[#8d7cd9] hover:border-solid hover:border-2 hover:border-sky-800 ">
           <img
-            className="h-4/5  pl-2"
+            className="h-10  pl-2"
             onClick={async () => {
               if (!canFinish) {
                 setIncompleteError(true);
                 return;
               }
+              if (finished) return;
               setTotalExperience(totalExperience + quest.experience);
               setFinished(true);
               await fetch("/api/experience/post/" + sessionId, {

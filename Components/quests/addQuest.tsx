@@ -1,14 +1,18 @@
 import { TextInput, Button } from "flowbite-react";
-import { useAtom } from "jotai";
+import { useAtomValue } from "jotai";
+import { totalExperienceAtom } from "@/lib/atoms";
 import { diff } from "../../lib/constants";
 import { FC } from "react";
 import { useState } from "react";
+import { getCurrentExperienceNeeded } from "@/lib/util";
 const AddQuest: FC<{
   sessionId: string;
   getQuests: () => void;
-}> = ({ sessionId, getQuests }) => {
+  setShowAdd: (value: boolean) => void;
+}> = ({ sessionId, getQuests, setShowAdd }) => {
   const [newQuestName, setNewQuestName] = useState("");
   const [newQuestDiff, setNewQuestDiff] = useState(0);
+  const totalExperience = useAtomValue(totalExperienceAtom);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(sessionId, "handle submit 1");
@@ -18,6 +22,14 @@ const AddQuest: FC<{
       className="flex flex-col items-center text-white p-4 gap-2 accent-red-500"
       onSubmit={handleSubmit}
     >
+      <button
+        onClick={() => {
+          setShowAdd(false);
+        }}
+        className=" p-1 absolute self-end w-8  rounded-full  mr-2 hover:bg-purple-700 focus:bg-slate-300 focus:border"
+      >
+        <img src="close.png" alt="" />
+      </button>
       <p>Quest title</p>
 
       <TextInput
@@ -37,7 +49,15 @@ const AddQuest: FC<{
         htmlFor="minmax-range"
         className="text-center block mb-2 text-sm font-medium "
       >
-        {diff[newQuestDiff]}
+        {diff[newQuestDiff] +
+          " ( +" +
+          Math.ceil(
+            (getCurrentExperienceNeeded(totalExperience) *
+              (newQuestDiff + 1) *
+              1.17 ** newQuestDiff) /
+              30
+          ) +
+          " exp )"}
       </label>
       <input
         className="range w-full h-2 accent-fuchsia-500 rounded-lg cursor-pointer mb-2"
