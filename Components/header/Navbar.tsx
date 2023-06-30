@@ -33,7 +33,7 @@ export default function Navbar() {
             src={session?.user?.image ? session?.user?.image : "Avatar_1.jpg"}
           />
           <div className="flex items-center -translate-x-1 h-2/5 w-3/5">
-            <div className="flex w-full justify-center h-full bg-neutral-400">
+            <div className="flex w-full justify-center h-full bg-white">
               <div
                 className={`absolute bg-cyan-400 left-0  h-full z-10`}
                 style={{
@@ -44,16 +44,16 @@ export default function Navbar() {
                     "%",
                 }}
               ></div>
-              <div className="flex text-center ">
-                <p className="text-gray-700 z-20">
+              <div className="flex text-center font-semibold ">
+                <p className="text-black  z-20">
                   {getCurrentExperiece(totalExperience)}/
                 </p>
-                <p className="text-yel z-20">
+                <p className="text-purple-800  z-20">
                   {getCurrentExperienceNeeded(totalExperience)} XP
                 </p>
               </div>
             </div>
-            <div className="aspect-square h-full bg-yellow-900 text-green-500 flex justify-center font-bold">
+            <div className="aspect-square h-full bg-fuchsia-300 text-purple-900 flex justify-center font-bold">
               <p>{getLevel(totalExperience)}</p>
             </div>
           </div>

@@ -1,15 +1,16 @@
 import Navbar from "@/Components/header/Navbar";
+import AddQuest from "@/Components/quests/addQuest";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
-import { Toast } from "flowbite-react";
+import { Toast, TextInput } from "flowbite-react";
 import { GoAlert } from "react-icons/go";
 import Quest from "@/Components/quests/quest";
 const Quests = (props: any) => {
   const { data: session }: { data: Session } = useSession();
   const [quests, setQuests] = useState([]);
   const [incompleteError, setIncompleteError] = useState(false);
-  const [showAdd, setShowAdd] = useState(true);
+  const [showAdd, setShowAdd] = useState(false);
   const getQuests = async () => {
     await fetch("/api/quests/get/" + session.id)
       .then((r) =>
@@ -44,11 +45,21 @@ const Quests = (props: any) => {
         </Toast>
       )}
       {showAdd && (
-        <div className="absolute left-1/2 -translate-x-1/2 bg-red-500"></div>
+        <div className="absolute left-1/2 -translate-x-1/2 w-1/4 mt-8 bg-violet-800 rounded-lg">
+          <AddQuest sessionId={session.id} getQuests={getQuests}></AddQuest>
+        </div>
       )}
-      <div className=" absolute top-1/5 left-1/2 transform -translate-x-1/2  divide-gray-200 dark:divide-gray-700 "></div>
-      <div className="flex justify-center mt-4">
-        <div className="flex flex-col w-1/2 bg-slate-200 rounded-lg shadow-md  ">
+      <div className="flex flex-col items-center my-2">
+        <div className="flex flex-col w-fit self-center">
+          <button
+            className="ml-2 my-2 flex items-center border-2 rounded-lg bg-purple-400 hover:bg-purple-500 border-purple-600 focus:border-fuchsia-800"
+            onClick={() => setShowAdd(true)}
+          >
+            <img className="h-10" src="add_quest.svg"></img>
+            <p className="mx-2">Add quest</p>
+          </button>
+        </div>
+        <div className="flex flex-col w-1/2 bg-fuchsia-200 rounded-lg shadow-md border-2 border-[#8d7cd9] ">
           {quests ? (
             quests.map((quest) => (
               <Quest
@@ -66,9 +77,6 @@ const Quests = (props: any) => {
             </p>
           )}
         </div>
-        <button className="ml-2 flex">
-          <img src="add_quest.svg"></img>
-        </button>
       </div>
     </>
   );

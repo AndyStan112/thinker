@@ -41,6 +41,7 @@ const Stats = () => {
       <div className="flex justify-center mt-4 w-4/5">
         <div className="flex flex-col">
           <DateRangePicker
+            rangeColors={["rgb(162 28 175)", "green"]}
             ranges={[
               { startDate: new Date(), endDate: new Date(), key: "selection" },
             ]}
@@ -49,25 +50,25 @@ const Stats = () => {
           <div className="flex justify-center gap-20">
             <div className="flex flex-col gap-4">
               <p>În total</p>
-              <p className="bg-slate-300 p-4 rounded-lg shadow-md">
+              <p className="bg-fuchsia-200 p-4 rounded-lg shadow-md">
                 Ai strâns {totalExperience} experienta
               </p>
-              <p className="bg-slate-300 p-4 rounded-lg shadow-md">
+              <p className="bg-fuchsia-200 p-4 rounded-lg shadow-md">
                 Ai finalizat {totalTasks} task-uri
               </p>
-              <p className="bg-slate-300 p-4 rounded-lg shadow-md">
+              <p className="bg-fuchsia-200 p-4 rounded-lg shadow-md">
                 Ai parcurs deck-uri de {totalDecks} ori
               </p>
             </div>
             <div className="flex flex-col gap-4">
               <p>În perioada aleasă</p>
-              <p className="bg-slate-300 p-4 rounded-lg shadow-md">
+              <p className="bg-fuchsia-200 p-4 rounded-lg shadow-md">
                 Ai strâns {totalExperience} experienta
               </p>
-              <p className="bg-slate-300 p-4 rounded-lg shadow-md">
+              <p className="bg-fuchsia-200 p-4 rounded-lg shadow-md">
                 Ai finalizat {totalTasks} task-uri
               </p>
-              <p className="bg-slate-300 p-4 rounded-lg shadow-md">
+              <p className="bg-fuchsia-200 p-4 rounded-lg shadow-md">
                 Ai parcurs deck-uri de {totalDecks} ori
               </p>
             </div>

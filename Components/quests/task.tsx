@@ -13,8 +13,8 @@ const Task: FC<{
   const [finished, setFinished] = useState(task.finished);
   const [totalExperience, setTotalExperience] = useAtom(totalExperienceAtom);
   return show ? (
-    <div className="flex flex-col border-y-2 border-amber-200 pl-4 ml-2">
-      <div className="flex items-center border-2 hover:border-sky-200">
+    <div className="flex flex-col border-b-2 border-l-[12px] border-fuchsia-700 pl-4  hover:border-t-2 hover:border-r-2 hover:border-solid  hover:border-purple-900">
+      <div className="flex items-center border-none border-2 hover:border-solid  hover:border-sky-800 ">
         <img
           className={"h-4/6 " + (finished ? "pointer-events-none" : "")}
           onClick={async () => {
@@ -46,7 +46,8 @@ const Task: FC<{
           {task.title}
           <p
             className={
-              "ml-auto " + (finished ? "text-emerald-700" : "text-slate-500")
+              "ml-auto " +
+              (finished ? "text-fuchsia-600 font-semibold" : "text-slate-500")
             }
           >
             +{task.experience} exp
@@ -57,7 +58,7 @@ const Task: FC<{
           ></img>
         </button>
       </div>
-      <div className={"ml-4 " + (!open ? "hidden" : "inline")}>
+      <div className={"ml-4 mb-4 " + (!open ? "hidden" : "inline")}>
         {task.description}
       </div>
     </div>
