@@ -7,9 +7,9 @@ import { useState } from "react";
 import { getCurrentExperienceNeeded } from "@/lib/util";
 const AddQuest: FC<{
   sessionId: string;
-  getQuests: () => void;
+  setQuests: (quests) => void;
   setShowAdd: (value: boolean) => void;
-}> = ({ sessionId, getQuests, setShowAdd }) => {
+}> = ({ sessionId, setQuests, setShowAdd }) => {
   const [newQuestName, setNewQuestName] = useState("");
   const [newQuestDiff, setNewQuestDiff] = useState(0);
   const totalExperience = useAtomValue(totalExperienceAtom);

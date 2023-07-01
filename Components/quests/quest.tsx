@@ -32,7 +32,7 @@ const Quest: FC<{
   return (
     <>
       <div className="flex flex-col  ">
-        <div className="flex items-center   border-b-2 border-[#8d7cd9] hover:border-solid hover:border-2 hover:border-sky-800 ">
+        <div className="flex items-center border-y-[1.5px] border-[#8d7cd9] hover:border-solid hover:border-2 hover:border-sky-800 ">
           <img
             className="h-10  pl-2"
             onClick={async () => {
@@ -70,7 +70,7 @@ const Quest: FC<{
             <p
               className={
                 "ml-auto " +
-                (finished ? "text-fuchsia-00 font-semibold" : "text-slate-500")
+                (finished ? "text-fuchsia-600 font-semibold" : "text-slate-500")
               }
             >
               {currQuestExp}/{totalQuestExp} +{quest.experience} exp
@@ -94,7 +94,7 @@ const Quest: FC<{
           {open && (
             <div className="flex flex-col w-fit self-center">
               <button
-                className="ml-2 mt-2 flex items-center border-2 rounded-lg bg-purple-400 hover:bg-purple-500 border-purple-600 focus:border-fuchsia-800"
+                className="ml-2 my-2 flex items-center border-2 rounded-lg bg-purple-400 hover:bg-purple-500 border-purple-600 focus:border-fuchsia-800"
                 onClick={() => setShowAdd(true)}
               >
                 <img className="h-10" src="add_quest.svg"></img>

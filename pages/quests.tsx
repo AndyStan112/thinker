@@ -48,7 +48,7 @@ const Quests = (props: any) => {
         <div className="absolute left-1/2 -translate-x-1/2 w-1/4 mt-8 bg-violet-800 rounded-lg">
           <AddQuest
             sessionId={session.id}
-            getQuests={getQuests}
+            setQuests={setQuests}
             setShowAdd={setShowAdd}
           ></AddQuest>
         </div>
@@ -75,10 +75,7 @@ const Quests = (props: any) => {
               />
             ))
           ) : (
-            <p>
-              Nu ai niciun quest.Apasă butonul din dreapta pentru a crea un
-              quest nou.
-            </p>
+            <p>Nu ai niciun quest.Apasă butonul pentru a crea un quest nou.</p>
           )}
         </div>
       </div>
