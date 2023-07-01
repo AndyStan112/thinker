@@ -20,3 +20,13 @@ export const getExpFromDiff = (totalExperience: number, difficulty: number) =>
       1.17 ** difficulty) /
       30
   );
+
+export const isInRange = (date, startDate, endDate) => {
+  if (startDate.getTime() == endDate.getTime())
+    return new Date(date).getTime() >= startDate.getTime();
+  else
+    return (
+      new Date(date).getTime() <= endDate.getTime() &&
+      new Date(date).getTime() >= startDate.getTime()
+    );
+};

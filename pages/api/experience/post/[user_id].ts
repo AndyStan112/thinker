@@ -25,7 +25,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     };
     await prisma.$transaction([
       prisma.history.create({
-        data: { userId: userId, source: title, sourceType: type },
+        data: { userId: userId, source: title, sourceType: type, experience },
       }),
       updateSource(type),
       prisma.user.update({

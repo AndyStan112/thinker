@@ -2,11 +2,20 @@ import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
 import { DateRangePicker } from "react-date-range";
 import { useEffect, useState } from "react";
+import { ro } from "date-fns/locale";
+import { isInRange } from "@/lib/util";
 import Navbar from "@/Components/header/Navbar";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 const Stats = () => {
   const { data: session }: { data: Session | null } = useSession();
+  const [state, setState] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
   const [events, setEvents] = useState([]);
   const [totalExperience, setTotalExperience] = useState(0);
   useEffect(() => {
@@ -31,23 +40,45 @@ const Stats = () => {
   const totalTasks = events.filter(
     (event) => event.sourceType == "task"
   ).length;
+  const selectedTasks = events.filter(
+    (event) =>
+      event.sourceType == "task" &&
+      isInRange(event.date, state[0].startDate, state[0].endDate)
+  ).length;
+  const selectedExperience = events
+    .filter(
+      (event) =>
+        event.sourceType == "task" &&
+        isInRange(event.date, state[0].startDate, state[0].endDate)
+    )
+    .reduce((acc, event) => acc + event.experience, 0);
   const totalDecks = events.filter(
     (event) => event.sourceType == "deck"
   ).length;
-  // const comp = events.reduce((acc,curr)=>acc+curr.experience,0)
+  const selectedDecks = events.filter(
+    (event) =>
+      event.sourceType == "deck" &&
+      isInRange(event.date, state[0].startDate, state[0].endDate)
+  ).length;
+  // const comp = events.reduce((acc, curr) => acc + curr.experience, 0);
   return (
     <>
       <Navbar></Navbar>
       <div className="flex justify-center mt-4 w-4/5">
         <div className="flex flex-col">
           <DateRangePicker
+            onChange={(item) => {
+              console.log(item.selection);
+              return setState([item.selection]);
+            }}
+            showSelectionPreview={true}
+            moveRangeOnFirstSelection={false}
+            locale={ro}
+            ranges={state}
+            maxDate={new Date()}
             rangeColors={["rgb(162 28 175)", "green"]}
-            ranges={[
-              { startDate: new Date(), endDate: new Date(), key: "selection" },
-            ]}
-            onChange={() => {}}
           />
-          <div className="flex justify-center gap-20">
+          <div className="ALL flex justify-center gap-20">
             <div className="flex flex-col gap-4">
               <p>În total</p>
               <p className="bg-fuchsia-200 p-4 rounded-lg shadow-md">
@@ -60,16 +91,17 @@ const Stats = () => {
                 Ai parcurs deck-uri de {totalDecks} ori
               </p>
             </div>
-            <div className="flex flex-col gap-4">
+
+            <div className="SELECTED flex flex-col gap-4">
               <p>În perioada aleasă</p>
               <p className="bg-fuchsia-200 p-4 rounded-lg shadow-md">
-                Ai strâns {totalExperience} experienta
+                Ai strâns {selectedExperience} experienta
               </p>
               <p className="bg-fuchsia-200 p-4 rounded-lg shadow-md">
-                Ai finalizat {totalTasks} task-uri
+                Ai finalizat {selectedTasks} task-uri
               </p>
               <p className="bg-fuchsia-200 p-4 rounded-lg shadow-md">
-                Ai parcurs deck-uri de {totalDecks} ori
+                Ai parcurs deck-uri de {selectedDecks} ori
               </p>
             </div>
           </div>
