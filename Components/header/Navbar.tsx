@@ -48,7 +48,7 @@ export default function Navbar() {
                   width:
                     (getCurrentExperiece(totalExperience) /
                       (getCurrentExperienceNeeded(totalExperience) || 1)) *
-                      100 +
+                      90 +
                     "%",
                 }}
               ></div>
