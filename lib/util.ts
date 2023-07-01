@@ -1,3 +1,4 @@
+import { totalExperienceAtom } from "./atoms";
 import { levelToExp } from "./constants";
 export const getTotalExperienceNeeded = (level: number) => levelToExp[level];
 export const getCurrentExperienceNeeded = (totalExperience: number) => {
@@ -12,3 +13,10 @@ export const getLevel = (totalExperience: number) =>
   levelToExp.findIndex((experience) => experience > totalExperience);
 
 //const getTotalExperienceNeeded = (level) => 15 +25 * Math.floor(level ** 2);
+export const getExpFromDiff = (totalExperience: number, difficulty: number) =>
+  Math.ceil(
+    (getCurrentExperienceNeeded(totalExperience) *
+      (difficulty + 1) *
+      1.17 ** difficulty) /
+      30
+  );

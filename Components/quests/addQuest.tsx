@@ -4,7 +4,9 @@ import { totalExperienceAtom } from "@/lib/atoms";
 import { diff } from "../../lib/constants";
 import { FC } from "react";
 import { useState } from "react";
-import { getCurrentExperienceNeeded } from "@/lib/util";
+import { getCurrentExperienceNeeded, getExpFromDiff } from "@/lib/util";
+import { PrismaQuest } from "@/types";
+import { v4 } from "uuid";
 const AddQuest: FC<{
   sessionId: string;
   setQuests: (quests) => void;
@@ -16,6 +18,16 @@ const AddQuest: FC<{
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(sessionId, "handle submit 1");
+    const newQuest: PrismaQuest = {
+      id: v4(),
+      tasks: [],
+      title: newQuestName,
+      experience: getExpFromDiff(totalExperience, newQuestDiff),
+      userId: sessionId,
+      finished: false,
+    };
+    console.log(newQuest.id);
+    setQuests((quests: PrismaQuest[]) => [...quests, newQuest]);
   };
   return (
     <form
@@ -23,6 +35,7 @@ const AddQuest: FC<{
       onSubmit={handleSubmit}
     >
       <button
+        type="button"
         onClick={() => {
           setShowAdd(false);
         }}
@@ -51,12 +64,7 @@ const AddQuest: FC<{
       >
         {diff[newQuestDiff] +
           " ( +" +
-          Math.ceil(
-            (getCurrentExperienceNeeded(totalExperience) *
-              (newQuestDiff + 1) *
-              1.17 ** newQuestDiff) /
-              30
-          ) +
+          getExpFromDiff(totalExperience, newQuestDiff) +
           " exp )"}
       </label>
       <input
@@ -70,7 +78,9 @@ const AddQuest: FC<{
           setNewQuestDiff(Number(e.target.value));
         }}
       />
-      <Button className="bg-cyan-400">Add</Button>
+      <Button type="submit" className="bg-cyan-400">
+        Add
+      </Button>
     </form>
   );
 };

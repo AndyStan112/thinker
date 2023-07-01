@@ -6,9 +6,10 @@ import { Session } from "next-auth";
 import { Toast, TextInput } from "flowbite-react";
 import { GoAlert } from "react-icons/go";
 import Quest from "@/Components/quests/quest";
+import { PrismaQuest } from "@/types";
 const Quests = (props: any) => {
   const { data: session }: { data: Session } = useSession();
-  const [quests, setQuests] = useState([]);
+  const [quests, setQuests] = useState<PrismaQuest[]>([]);
   const [incompleteError, setIncompleteError] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
   const getQuests = async () => {
@@ -24,6 +25,9 @@ const Quests = (props: any) => {
   useEffect(() => {
     if (session) getQuests();
   }, [session]);
+  useEffect(() => {
+    console.log(quests);
+  }, [quests]);
   if (!session) return <></>;
 
   return (
