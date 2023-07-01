@@ -4,7 +4,7 @@ import { totalExperienceAtom } from "@/lib/atoms";
 import { diff } from "../../lib/constants";
 import { FC } from "react";
 import { useState } from "react";
-import { getCurrentExperienceNeeded, getExpFromDiff } from "@/lib/util";
+import { getExpFromDiff } from "@/lib/util";
 import { PrismaQuest } from "@/types";
 import { v4 } from "uuid";
 const AddQuest: FC<{
@@ -28,6 +28,17 @@ const AddQuest: FC<{
     };
     console.log(newQuest.id);
     setQuests((quests: PrismaQuest[]) => [...quests, newQuest]);
+    await fetch("/api/quests/post/" + sessionId, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: newQuest.id,
+        title: newQuest.title,
+        experience: newQuest.experience,
+      }),
+    }).catch((e) => console.log(e));
   };
   return (
     <form
