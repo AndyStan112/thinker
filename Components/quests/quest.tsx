@@ -4,17 +4,19 @@ import { PrismaQuest } from "@/types";
 import { totalExperienceAtom } from "@/lib/atoms";
 import { useAtom } from "jotai";
 import { Button } from "flowbite-react";
+import AddTask from "./addTask";
 const Quest: FC<{
   quest: PrismaQuest;
+  setQuests: (quests) => void;
   sessionId: string;
   getQuests: () => void;
   setIncompleteError: Dispatch<SetStateAction<boolean>>;
-}> = ({ quest, sessionId, getQuests, setIncompleteError }) => {
+}> = ({ quest, sessionId, getQuests, setIncompleteError, setQuests }) => {
   const [open, setOpen] = useState(false);
   const [finished, setFinished] = useState(quest.finished);
   const canFinish = quest.tasks.every((task) => task.finished);
   const [totalExperience, setTotalExperience] = useAtom(totalExperienceAtom);
-  const [showAdd, setShowAdd] = useState(false);
+  const [showAddTask, setShowAddTask] = useState(false);
   const currQuestExp: number = useMemo(
     () =>
       quest.tasks
@@ -32,6 +34,15 @@ const Quest: FC<{
   return (
     <>
       <div className="flex flex-col  ">
+        {showAddTask && (
+          <div className="absolute top-28 left-1/2 -translate-x-1/2 w-1/4 mt-8 bg-violet-800 rounded-lg">
+            <AddTask
+              questId={quest.id}
+              setQuests={setQuests}
+              setShowAddTask={setShowAddTask}
+            ></AddTask>
+          </div>
+        )}
         <div className="flex items-center border-y-[1.5px] border-[#8d7cd9] hover:border-solid hover:border-2 hover:border-sky-800 ">
           <img
             className="h-10  pl-2"
@@ -95,7 +106,7 @@ const Quest: FC<{
             <div className="flex flex-col w-fit self-center">
               <button
                 className="ml-2 my-2 flex items-center border-2 rounded-lg bg-purple-400 hover:bg-purple-500 border-purple-600 focus:border-fuchsia-800"
-                onClick={() => setShowAdd(true)}
+                onClick={() => setShowAddTask(true)}
               >
                 <img className="h-10" src="add_quest.svg"></img>
                 <p className="mx-2">Add task</p>

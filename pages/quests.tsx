@@ -75,11 +75,14 @@ const Quests = (props: any) => {
                 key={quest.id}
                 sessionId={session.id}
                 getQuests={getQuests}
+                setQuests={setQuests}
                 setIncompleteError={setIncompleteError}
               />
             ))
           ) : (
-            <p>Nu ai niciun quest.Apasă butonul pentru a crea un quest nou.</p>
+            <i className="text-center">
+              Nu ai niciun quest. Apasă butonul pentru a crea un quest nou.
+            </i>
           )}
         </div>
       </div>
