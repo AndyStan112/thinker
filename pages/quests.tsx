@@ -67,8 +67,8 @@ const Quests = (props: any) => {
             <p className="mx-2">Add quest</p>
           </button>
         </div>
-        <div className="flex flex-col w-1/2 bg-fuchsia-200 rounded-lg shadow-md border-2 border-[#8d7cd9] ">
-          {quests ? (
+        <div className="flex flex-col  w-1/2 bg-fuchsia-200 rounded-lg shadow-md border-2 border-[#8d7cd9] ">
+          {quests.length ? (
             quests.map((quest) => (
               <Quest
                 quest={quest}

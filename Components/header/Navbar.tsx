@@ -1,5 +1,5 @@
 import Pages from "./Pages";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
 import { useAtom } from "jotai";
@@ -12,6 +12,7 @@ import {
 export default function Navbar() {
   const { data: session }: { data: Session | null } = useSession();
   const [totalExperience, setTotalExperience] = useAtom(totalExperienceAtom);
+  const [pulsing, setPulsing] = useState(true);
   useEffect(() => {
     if (session)
       fetch("/api/experience/get/" + session.id)
@@ -26,6 +27,7 @@ export default function Navbar() {
 
   return (
     <div className="flex w-screen h-16 bg-purple-600 -z-10 [p]:z-10">
+      <button onClick={() => fetch("/api/del/" + session.id)}>delete</button>
       {session && (
         <div className="flex items-center w-[50em] ml-3">
           <img
@@ -35,7 +37,13 @@ export default function Navbar() {
           <div className="flex items-center -translate-x-1 h-2/5 w-3/5">
             <div className="flex w-full justify-center h-full bg-white">
               <div
-                className={`absolute bg-cyan-400 left-0  h-full z-10`}
+                onTransitionEnd={() => {
+                  setPulsing(false);
+                }}
+                className={
+                  `absolute bg-cyan-400 left-0  h-full z-10 transition-all duration-700` +
+                  (pulsing ? "animate-pulse" : " ")
+                }
                 style={{
                   width:
                     (getCurrentExperiece(totalExperience) /
