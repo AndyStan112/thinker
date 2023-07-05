@@ -45,13 +45,15 @@ const Stats = () => {
       event.sourceType == "task" &&
       isInRange(event.date, state[0].startDate, state[0].endDate)
   ).length;
-  const selectedExperience = events
-    .filter(
-      (event) =>
-        event.sourceType == "task" &&
-        isInRange(event.date, state[0].startDate, state[0].endDate)
+  const tap = (x) => {
+    console.log(x);
+    return x;
+  };
+  const selectedExperience = tap(
+    events.filter((event) =>
+      isInRange(event.date, state[0].startDate, state[0].endDate)
     )
-    .reduce((acc, event) => acc + event.experience, 0);
+  ).reduce((acc, event) => acc + event.experience, 0);
   const totalDecks = events.filter(
     (event) => event.sourceType == "deck"
   ).length;

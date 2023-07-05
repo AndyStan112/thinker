@@ -22,11 +22,19 @@ export const getExpFromDiff = (totalExperience: number, difficulty: number) =>
   );
 
 export const isInRange = (date, startDate, endDate) => {
-  if (startDate.getTime() == endDate.getTime())
-    return new Date(date).getTime() >= startDate.getTime();
-  else
+  if (startDate.getTime() == endDate.getTime()) {
+    const nextDay = new Date(startDate);
+    nextDay.setDate(nextDay.getDate() + 1);
+    console.log(new Date(date).getTime(), new Date(startDate).getTime());
     return (
-      new Date(date).getTime() <= endDate.getTime() &&
-      new Date(date).getTime() >= startDate.getTime()
+      (new Date(date).getTime() >= new Date(startDate).getTime() )&&
+      (new Date(date).getTime() < nextDay.getTime())
     );
+  } else {
+    console.log("colo");
+    return (
+      new Date(date).getTime() <= new Date(endDate).getTime() &&
+      new Date(date).getTime() >= new Date(startDate).getTime()
+    );
+  }
 };
