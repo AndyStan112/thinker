@@ -9,9 +9,9 @@ const Quest: FC<{
   quest: PrismaQuest;
   setQuests: (quests) => void;
   sessionId: string;
-  getQuests: () => void;
+ 
   setIncompleteError: Dispatch<SetStateAction<boolean>>;
-}> = ({ quest, sessionId, getQuests, setIncompleteError, setQuests }) => {
+}> = ({ quest, sessionId,  setIncompleteError, setQuests }) => {
   const [open, setOpen] = useState(false);
   const [finished, setFinished] = useState(quest.finished);
   const canFinish = quest.tasks.every((task) => task.finished);
@@ -65,7 +65,6 @@ const Quest: FC<{
                 experience: quest.experience,
               }),
             })
-              .then(() => getQuests())
               .catch((e) => console.log(e));
           }}
           src={finished ? "check_box.svg" : "check_box_blank.svg"}
@@ -97,8 +96,10 @@ const Quest: FC<{
             key={task.id}
             show={open}
             task={task}
+            questId={quest.id}
             sessionId={sessionId}
-            getQuests={getQuests}
+            setQuests={setQuests}
+           
           />
         ))}
         {open && (

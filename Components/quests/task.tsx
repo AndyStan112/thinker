@@ -1,4 +1,5 @@
 import { totalExperienceAtom } from "@/lib/atoms";
+import { PrismaQuest } from "@/types";
 import { Task as PrismaTask } from "@prisma/client";
 import { useAtom } from "jotai";
 import { FC } from "react";
@@ -7,19 +8,29 @@ const Task: FC<{
   show: boolean;
   task: PrismaTask;
   sessionId: string;
-  getQuests: () => void;
-}> = ({ show, task, sessionId, getQuests }) => {
+  questId:string;
+  setQuests: (quests) => void;
+ 
+}> = ({ show, task, sessionId, setQuests,questId }) => {
   const [open, setOpen] = useState(false);
-  const [finished, setFinished] = useState(task.finished);
   const [totalExperience, setTotalExperience] = useAtom(totalExperienceAtom);
   return show ? (
     <div className="flex flex-col border-b-2 border-l-[12px] border-fuchsia-700 pl-4  hover:border-t-2 hover:border-r-2 hover:border-solid  hover:border-purple-900">
       <div className="flex items-center border-none border-2 hover:border-solid  hover:border-sky-800 ">
         <img
-          className={"h-9 " + (finished ? "pointer-events-none" : "")}
+          className={"h-9 " + (task.finished ? "pointer-events-none" : "")}
           onClick={async () => {
             setTotalExperience(totalExperience + task.experience);
-            setFinished(true);
+             setQuests((quests: PrismaQuest[]) => {
+      const questIndex = quests.findIndex((quest) => quest.id === questId);
+      const newTasks=quests[questIndex].tasks
+      const taskIndex =newTasks.findIndex((t) => t.id ===task.id );
+      newTasks[taskIndex].finished=true 
+     const newQuests = quests.map((quest) =>
+        quest.id === questId ? { ...quest, tasks: newTasks } : quest
+      );
+      return newQuests;
+    });
             await fetch("/api/experience/post/" + sessionId, {
               method: "POST",
               headers: {
@@ -32,10 +43,9 @@ const Task: FC<{
                 experience: task.experience,
               }),
             })
-              .then(() => getQuests())
               .catch((e) => console.log(e));
           }}
-          src={finished ? "check_box.svg" : "check_box_blank.svg"}
+          src={task.finished ? "check_box.svg" : "check_box_blank.svg"}
         ></img>
         <button
           className="flex items-center w-full ml-1"
@@ -47,7 +57,7 @@ const Task: FC<{
           <p
             className={
               "ml-auto " +
-              (finished ? "text-fuchsia-600 font-semibold" : "text-slate-500")
+              (task.finished ? "text-fuchsia-600 font-semibold" : "text-slate-500")
             }
           >
             +{task.experience} exp

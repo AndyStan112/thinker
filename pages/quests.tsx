@@ -38,7 +38,7 @@ const Quests = (props: any) => {
           <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-orange-100 text-orange-500 dark:bg-orange-700 dark:text-orange-200">
             <GoAlert className="h-5 w-5" />
           </div>
-          <div className="ml-3 text-sm font-normal text-white pr-2">
+          <div className="ml-3 text-sm font-normal text-black pr-2">
             Completează toate taskurile pentru a putea finaliza questul !
           </div>
           <Toast.Toggle
@@ -74,7 +74,7 @@ const Quests = (props: any) => {
                 quest={quest}
                 key={quest.id}
                 sessionId={session.id}
-                getQuests={getQuests}
+                
                 setQuests={setQuests}
                 setIncompleteError={setIncompleteError}
               />
