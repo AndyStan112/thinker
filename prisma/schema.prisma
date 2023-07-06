@@ -55,8 +55,10 @@ model User {
   sessions      Session[]
   quests        Quest[]
   history       History[]
-  Deck          Deck[]
-  Card          Card[]
+  decks         Deck[]
+  cards         Card[]
+
+  createdDecks Deck[] @relation(name: "DeckCreator")
 }
 
 model VerificationToken {
@@ -116,7 +118,10 @@ model Deck {
   experience  Int
   userId      String
   subjects    Subject[]
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User[]
+  creatorId   String
+  creator     User      @relation(name: "DeckCreator", fields: [creatorId], references: [id], onDelete: Cascade)
+  Card        Card[]
 }
 
 model Card {
@@ -124,13 +129,14 @@ model Card {
   title        String
   content      String
   type         CardType
-  answer       String?
-  experience   Int
+  answer       String
+  diff         Int
   timesShown   Int
   timesCorrect Int
-  userId       String
-  subjectId    String
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deckId       String
+  deck         Deck     @relation(fields: [deckId], references: [id])
+  creatorId    String
+  creator      User     @relation(fields: [creatorId], references: [id], onDelete: Cascade)
 }
 
 enum CardType {
