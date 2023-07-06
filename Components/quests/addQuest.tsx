@@ -22,7 +22,7 @@ const AddQuest: FC<{
       id: v4(),
       tasks: [],
       title: newQuestName,
-      experience: getExpFromDiff(totalExperience, newQuestDiff),
+      experience: getExpFromDiff(totalExperience, newQuestDiff)*2,
       userId: sessionId,
       finished: false,
     };
@@ -75,7 +75,7 @@ const AddQuest: FC<{
       >
         {diff[newQuestDiff] +
           " ( +" +
-          getExpFromDiff(totalExperience, newQuestDiff) +
+          getExpFromDiff(totalExperience, newQuestDiff)*2 +
           " exp )"}
       </label>
       <input
