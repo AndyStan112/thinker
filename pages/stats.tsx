@@ -45,6 +45,14 @@ const Stats = () => {
       event.sourceType == "task" &&
       isInRange(event.date, state[0].startDate, state[0].endDate)
   ).length;
+  const totalQuests = events.filter(
+    (event) => event.sourceType == "quest"
+  ).length;
+  const selectedQuests = events.filter(
+    (event) =>
+      event.sourceType == "quest" &&
+      isInRange(event.date, state[0].startDate, state[0].endDate)
+  ).length;
   const tap = (x) => {
     console.log(x);
     return x;
@@ -84,7 +92,10 @@ const Stats = () => {
             <div className="flex flex-col gap-4">
               <p>În total</p>
               <p className="bg-fuchsia-200 p-4 rounded-lg shadow-md">
-                Ai strâns {totalExperience} experienta
+                Ai strâns {totalExperience} experientă
+              </p>
+              <p className="bg-fuchsia-200 p-4 rounded-lg shadow-md">
+                Ai finalizat {totalQuests} quest-uri
               </p>
               <p className="bg-fuchsia-200 p-4 rounded-lg shadow-md">
                 Ai finalizat {totalTasks} task-uri
@@ -97,7 +108,10 @@ const Stats = () => {
             <div className="SELECTED flex flex-col gap-4">
               <p>În perioada aleasă</p>
               <p className="bg-fuchsia-200 p-4 rounded-lg shadow-md">
-                Ai strâns {selectedExperience} experienta
+                Ai strâns {selectedExperience} experientă
+              </p>
+              <p className="bg-fuchsia-200 p-4 rounded-lg shadow-md">
+                Ai finalizat {selectedQuests} quest-uri
               </p>
               <p className="bg-fuchsia-200 p-4 rounded-lg shadow-md">
                 Ai finalizat {selectedTasks} task-uri
