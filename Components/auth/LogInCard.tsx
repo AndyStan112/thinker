@@ -22,6 +22,7 @@ const LogInCard = ({ setIsOpen }) => {
   return (
     <div className="h-screen w-screen fixed flex justify-center items-center bg-gray-400/90 z-20 ">
       <form
+      //@ts-ignore   
         onSubmit={handleSubmit(({ email }) => {
           // signIn('email', { email, callbackUrl: redirectUrl });
           logIn('email',email)
