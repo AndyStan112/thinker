@@ -20,7 +20,7 @@ const Home = (props: any) => {
       {isOpen && <LogInCard setIsOpen={setIsOpen} />}
       <Navbar />
       <div className="flex flex-col justify-center">
-        <section className="flex flex-col items-center w-full justify-center  bg-slate-300  p-3 gap-2 ">
+        <section className="flex  flex-col items-center text-center w-full justify-center  bg-slate-300  p-3 gap-2 ">
           <h1>Thinker</h1>
           <h2>Promoting thinking, not skimping. The future of learning.</h2>
           <h2>Thinker is the best tool to make learning fun by gamification</h2>
@@ -44,7 +44,7 @@ const Home = (props: any) => {
         </div>
       </header>
       <section className="container mx-auto px-4 py-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div className="text-center">
             <img src="quests.svg" alt="Quest Icon" className="w-24 mx-auto" />
             <h2 className="text-xl font-bold mt-4">Quests</h2>
