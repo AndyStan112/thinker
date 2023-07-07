@@ -12,8 +12,8 @@ const style = {
   width: '75%',
 };
 const redirectUrl = 'http://localhost:3000/';
-const logIn = (provider, email = undefined) => {
-  email
+const logIn = (provider, email ="") => {
+  email===""
     ? signIn(provider, { callbackUrl: redirectUrl }, email)
     : signIn(provider, { callbackUrl: redirectUrl });
 };
