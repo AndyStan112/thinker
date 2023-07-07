@@ -13,7 +13,7 @@ const style = {
 };
 const redirectUrl = 'http://localhost:3000/';
 const logIn = (provider, email ="") => {
-  email===""
+  email!==""
     ? signIn(provider, { callbackUrl: redirectUrl }, email)
     : signIn(provider, { callbackUrl: redirectUrl });
 };
@@ -23,7 +23,8 @@ const LogInCard = ({ setIsOpen }) => {
     <div className="h-screen w-screen fixed flex justify-center items-center bg-gray-400/90 z-20 ">
       <form
         onSubmit={handleSubmit(({ email }) => {
-          signIn('email', { email, callbackUrl: redirectUrl });
+          // signIn('email', { email, callbackUrl: redirectUrl });
+          logIn('email',email)
         })}
         className="w-80 h-[27rem]  flex flex-col bg-slate-200 rounded-xl shadow-md justify-center gap-2 items-center"
       >
