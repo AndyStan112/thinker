@@ -129,7 +129,7 @@ model Card {
   title        String
   content      String
   type         CardType
-  answer       String
+  answer       String[]
   diff         Int
   timesShown   Int
   timesCorrect Int

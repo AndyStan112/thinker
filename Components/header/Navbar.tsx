@@ -27,7 +27,7 @@ export default function Navbar() {
 
   return (
     <div className="flex w-screen h-16 bg-purple-600 -z-10 [p]:z-10">
-      <button onClick={() => fetch("/api/del/" + session.id)}>delete</button>
+      {/* <button onClick={() => fetch("/api/del/" + session.id)}>delete</button> */}
       {session && (
         <div className="flex items-center w-[50em] ml-3">
           <img

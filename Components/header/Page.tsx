@@ -14,7 +14,7 @@ export default function Page(props) {
         }}
       >
         <p
-          className="transition-all"
+          className="transition-all mr-6"
           style={{ display: extended ? "inline" : "none" }}
         >
           {props.text}

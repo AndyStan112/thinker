@@ -82,7 +82,7 @@ const Quest: FC<{
               (finished ? "text-fuchsia-600 font-semibold" : "text-slate-500")
             }
           >
-            {currQuestExp}/{totalQuestExp} +{quest.experience} exp
+            {currQuestExp + (finished?quest.experience:0)}/{totalQuestExp} +{quest.experience} exp
           </p>
           <img
             className=""

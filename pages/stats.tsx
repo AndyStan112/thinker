@@ -74,7 +74,7 @@ const Stats = () => {
   return (
     <>
       <Navbar></Navbar>
-      <div className="flex justify-center mt-4 w-4/5">
+      <div className="flex justify-center mt-4 ">
         <div className="flex flex-col">
           <DateRangePicker
             onChange={(item) => {
