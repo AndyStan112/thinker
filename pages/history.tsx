@@ -3,8 +3,12 @@ import { Session } from "next-auth";
 import { Timeline } from "flowbite-react";
 import { useEffect, useState } from "react";
 import Navbar from "@/Components/header/Navbar";
-import { FC, SVGProps } from 'react';
-import tdot from '../public/tdot.svg'
+import tdot from "../public/tdot.svg"
+const CircleIcon = () => (
+  <svg height="100" width="100" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="49" r="10" stroke="purple" strokeWidth="3" fill="purple" />
+  </svg>
+);
 
 const History = () => {
   const { data: session }: { data: Session | null } = useSession();
@@ -37,7 +41,7 @@ const History = () => {
               const date = new Date(event.date);
               return (
                 <Timeline.Item>
-                  <Timeline.Point icon={tdot} className="bg-none" />
+                  <Timeline.Point icon={CircleIcon} className="bg-none" />
                   <Timeline.Content>
                     <Timeline.Time>{date.toLocaleDateString()}</Timeline.Time>
                     <Timeline.Title>
