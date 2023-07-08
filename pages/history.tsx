@@ -6,7 +6,7 @@ import Navbar from "@/Components/header/Navbar";
 import tdot from "../public/tdot.svg"
 const CircleIcon = () => (
   <svg height="100" width="100" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="12" cy="49" r="10" stroke="purple" strokeWidth="3" fill="purple" />
+    <circle cx="12" cy="49" r="12"  fill="violet" />
   </svg>
 );
 
