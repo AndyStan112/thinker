@@ -11,7 +11,7 @@ const style = {
   display: 'inherit',
   width: '75%',
 };
-const redirectUrl = 'http://localhost:3000/';
+const redirectUrl = process.env.NEXTAUTH_URL;
 const logIn = (provider, email ="") => {
   email!==""
     ? signIn(provider, { callbackUrl: redirectUrl }, email)
