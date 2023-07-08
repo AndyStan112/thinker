@@ -3,6 +3,9 @@ import { Session } from "next-auth";
 import { Timeline } from "flowbite-react";
 import { useEffect, useState } from "react";
 import Navbar from "@/Components/header/Navbar";
+import { FC, SVGProps } from 'react';
+import tdot from '../public/tdot.svg'
+
 const History = () => {
   const { data: session }: { data: Session | null } = useSession();
   const [events, setEvents] = useState([]);
@@ -34,7 +37,7 @@ const History = () => {
               const date = new Date(event.date);
               return (
                 <Timeline.Item>
-                  <Timeline.Point icon="close.png" className="bg-none" />
+                  <Timeline.Point icon={tdot} className="bg-none" />
                   <Timeline.Content>
                     <Timeline.Time>{date.toLocaleDateString()}</Timeline.Time>
                     <Timeline.Title>
