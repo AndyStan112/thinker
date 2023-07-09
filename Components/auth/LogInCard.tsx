@@ -12,10 +12,10 @@ const style = {
   width: '75%',
 };
 const redirectUrl = process.env.NEXTAUTH_URL;
-const logIn = (provider, email ="") => {
-  email!==""
-    ? signIn(provider, { callbackUrl: redirectUrl }, email)
-    : signIn(provider, { callbackUrl: redirectUrl });
+const logIn = (provider:string, email =undefined) => {
+  email
+    ? signIn(provider, {}, email)
+    : signIn(provider, {});
 };
 const LogInCard = ({ setIsOpen }) => {
   const { register, handleSubmit } = useForm();
@@ -24,8 +24,8 @@ const LogInCard = ({ setIsOpen }) => {
       <form
       //@ts-ignore   
         onSubmit={handleSubmit(({ email }) => {
-          // signIn('email', { email, callbackUrl: redirectUrl });
-          logIn('email',email)
+          signIn('email', { email});
+          
         })}
         className="w-80 h-[27rem]  flex flex-col bg-slate-200 rounded-xl shadow-md justify-center gap-2 items-center"
       >
