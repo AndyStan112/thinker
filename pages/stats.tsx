@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
-import { DateRangePicker } from "react-date-range";
+import { DateRangePicker ,DateRange} from "react-date-range";
 import { useEffect, useState } from "react";
 import { ro } from "date-fns/locale";
 import { isInRange } from "@/lib/util";
@@ -76,7 +76,7 @@ const Stats = () => {
       <Navbar></Navbar>
       <div className="flex justify-center mt-4 ">
         <div className="flex flex-col">
-          <DateRangePicker
+          {(window.innerWidth>= 558? <DateRangePicker
             onChange={(item) => {
               console.log(item.selection);
               return setState([item.selection]);
@@ -87,8 +87,19 @@ const Stats = () => {
             ranges={state}
             maxDate={new Date()}
             rangeColors={["rgb(162 28 175)", "green"]}
-          />
-          <div className="ALL flex justify-center gap-20">
+          /> : <DateRange
+            onChange={(item) => {
+              console.log(item.selection);
+              return setState([item.selection]);
+            }}
+            showSelectionPreview={true}
+            moveRangeOnFirstSelection={false}
+            locale={ro}
+            ranges={state}
+            maxDate={new Date()}
+            rangeColors={["rgb(162 28 175)", "green"]}
+          /> )}
+          <div className="ALL flex justify-center gap-2 text-sm sm:text-base sm:gap-20">
             <div className="flex flex-col gap-4">
               <p>În total</p>
               <p className="bg-fuchsia-200 p-4 rounded-lg shadow-md">
