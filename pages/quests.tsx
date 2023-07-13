@@ -49,7 +49,7 @@ const Quests = (props: any) => {
         </Toast>
       )}
       {showAdd && (
-        <div className="absolute left-1/2 -translate-x-1/2 w-1/4 mt-8 bg-violet-800 rounded-lg">
+        <div className="absolute left-1/2 -translate-x-1/2 w-11/12 sm:w-1/3 md:1/2 mt-8 bg-violet-800 rounded-lg">
           <AddQuest
             sessionId={session.id}
             setQuests={setQuests}
@@ -67,7 +67,7 @@ const Quests = (props: any) => {
             <p className="mx-2">Add quest</p>
           </button>
         </div>
-        <div className="flex flex-col  w-1/2 bg-fuchsia-200 rounded-lg shadow-md border-2 border-[#8d7cd9] ">
+        <div className="flex flex-col text-xs sm:text-base  w-11/12 sm:w-1/2 bg-fuchsia-200 rounded-lg shadow-md border-2 border-[#8d7cd9] ">
           {quests.length ? (
             quests.map((quest) => (
               <Quest

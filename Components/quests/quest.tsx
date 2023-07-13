@@ -34,7 +34,7 @@ const Quest: FC<{
   return (
     <div className="flex flex-col first:rounded-t-lg last:rounded-b-lg ">
       {showAddTask && (
-        <div className="absolute top-28 left-1/2 -translate-x-1/2 w-1/4 mt-8 bg-violet-800 rounded-lg">
+        <div className="absolute top-28 left-1/2 -translate-x-1/2 w-11/12 sm:w-1/3 md:1/2 mt-8 bg-violet-800 rounded-lg">
           <AddTask
             questId={quest.id}
             setQuests={setQuests}

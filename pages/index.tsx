@@ -39,7 +39,7 @@ const Home = (props: any) => {
       <div className="bg-gray-100 ">
       <header className="bg-blue-500 text-white py-10 text-center">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold">Welcome to Tinker</h1>
+          <h1 className="text-4xl font-bold">Welcome to Thinker</h1>
           <p className="mt-2">Manage your tasks like quests and level up!</p>
         </div>
       </header>

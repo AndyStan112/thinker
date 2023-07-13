@@ -12,6 +12,7 @@ import {
 export default function Navbar() {
   const { data: session }: { data: Session | null } = useSession();
   const [totalExperience, setTotalExperience] = useAtom(totalExperienceAtom);
+  const [extended, setExtended] = useState(false)
   const [pulsing, setPulsing] = useState(true);
   useEffect(() => {
     if (session)
@@ -25,13 +26,13 @@ export default function Navbar() {
         .catch((e) => console.log(e));
   }, [session]);
 
-  return (
-    <div className="flex w-screen h-16 bg-purple-600 -z-10 [p]:z-10">
+  return (<>
+    <div className="flex  w-screen h-16 items-stretch bg-purple-600 -z-10 [p]:z-10">
       {/* <button onClick={() => fetch("/api/del/" + session.id)}>delete</button> */}
       {session && (
-        <div className="flex items-center w-[50em] ml-3">
+        <div className="flex flex-row items-center w-[150em] sm:w-[50em] ml-3">
           <img
-            className="h-4/5 rounded-3xl z-10"
+            className="h-12 rounded-3xl z-10"
             src={session?.user?.image ? session?.user?.image : "Avatar_1.jpg"}
           />
           <div className="flex items-center -translate-x-1 h-2/5 w-3/5">
@@ -67,7 +68,13 @@ export default function Navbar() {
           </div>
         </div>
       )}
-      <Pages />
+      <div className="flex justify-end sm:hidden items-center mr-5  w-full ">
+        <button className="flex" onClick={()=>{extended?setExtended(false):setExtended(true)}}>
+          <img className="h-10 w-10 aspect-square " src='menu.svg'>
+            </img></button></div>
+            {!extended&&<Pages extended={extended} />}
     </div>
+     {extended&&<Pages extended={extended} />}
+    </>
   );
 }

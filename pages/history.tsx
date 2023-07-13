@@ -29,7 +29,7 @@ const History = () => {
     <>
       <Navbar></Navbar>
 
-      <div className="flex justify-center mt-4 w-4/5">
+      <div className="flex justify-center mt-4 ml-6 sm:ml-0 w-4/5">
         {!events.length ? (
           <p className="bg-slate-300 rounded-xl p-3">Istoricul este gol</p>
         ) : (

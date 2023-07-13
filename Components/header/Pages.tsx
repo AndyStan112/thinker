@@ -1,8 +1,8 @@
 import Page from "./Page";
 import { signOut } from "next-auth/react";
-export default function Pages() {
+export default function Pages({extended}) {
   return (
-    <div className="flex flex-row-reverse items-center w-full gap-6 mr-5">
+    <div className={" sm:flex bg-purple-600 flex-row-reverse justify-between h-full w-full px-2 sm:gap-6 sm:mr-5 " + (extended ?'flex':'hidden')}>
       <div
         className="flex h-full items-center"
         onClick={() => {
