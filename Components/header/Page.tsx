@@ -14,7 +14,7 @@ export default function Page(props) {
         }}
       >
         <p
-          className={"transition-all mr-6 hidden "+ (extended ? "md:inline" : "hidden")}
+          className={"transition-all mr-6 hidden lg:inline "+ (extended ? "md:inline" : "hidden")}
          
         >
           {props.text}

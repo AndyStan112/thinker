@@ -9,6 +9,7 @@ import {
   getCurrentExperienceNeeded,
   getLevel,
 } from "@/lib/util";
+import Link from "next/link";
 export default function Navbar() {
   const { data: session }: { data: Session | null } = useSession();
   const [totalExperience, setTotalExperience] = useAtom(totalExperienceAtom);
@@ -31,10 +32,12 @@ export default function Navbar() {
       {/* <button onClick={() => fetch("/api/del/" + session.id)}>delete</button> */}
       {session && (
         <div className="flex flex-row items-center w-[150em] sm:w-[50em] ml-3">
-          <img
-            className="h-12 rounded-3xl z-10"
+          <Link  className="h-12 rounded-3xl z-30" href="/"><img
+            className="h-12 rounded-3xl z-30"
+           
             src={session?.user?.image ? session?.user?.image : "Avatar_1.jpg"}
-          />
+          /></Link>
+          
           <div className="flex items-center -translate-x-1 h-2/5 w-3/5">
             <div className="flex w-full justify-center h-full bg-white">
               <div

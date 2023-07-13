@@ -5,6 +5,7 @@ import LogInCard from '../Components/auth/LogInCard';
 import { Carousel } from 'flowbite-react';
 import { useSession, signOut } from 'next-auth/react';
 import { Session } from 'next-auth';
+import { MathJax } from 'better-react-mathjax';
 
 const Home = (props: any) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -77,6 +78,7 @@ const Home = (props: any) => {
           </div>
         </div>
       </section>
+        
       <footer className="bg-gray-300 text-center py-4">
         <p>&copy; 2023 Tinker. All rights reserved.</p>
       </footer>
