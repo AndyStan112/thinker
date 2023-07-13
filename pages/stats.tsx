@@ -99,9 +99,9 @@ const Stats = () => {
             maxDate={new Date()}
             rangeColors={["rgb(162 28 175)", "green"]}
           /> )}
-          <div className="ALL flex justify-center gap-2 text-sm sm:text-base sm:gap-20">
+          <div className="ALL flex justify-center gap-2 text-xs sm:text-base sm:gap-20">
             <div className="flex flex-col gap-4">
-              <p>În total</p>
+              <p className="ml-2">În total</p>
               <p className="bg-fuchsia-200 p-4 rounded-lg shadow-md">
                 Ai strâns {totalExperience} experientă
               </p>
