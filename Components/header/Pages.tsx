@@ -13,8 +13,8 @@ export default function Pages({extended}) {
       </div>
 
       {/* <Page text="Settings" img="settings.png" link="quests" /> */}
-      <Page text="Test" img="test.svg" link="/Decks" />
-      <Page text="Decks" img="decks.svg" link="/" />
+      <Page text="Test" img="test.svg" link="wip" />
+      <Page text="Decks" img="decks.svg" link="wip" />
       <Page text="Quests" img="quests.svg" link="quests" />
       <Page text="History" img="history.svg" link="history" />
       <Page text="Statistics" img="stats.svg" link="stats" />
