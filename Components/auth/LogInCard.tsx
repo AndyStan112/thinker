@@ -30,6 +30,7 @@ const LogInCard = ({ setIsOpen }) => {
         className="w-80 h-[27rem]  flex flex-col bg-slate-200 rounded-xl shadow-md justify-center gap-2 items-center"
       >
         <button
+        type='button'
           onClick={() => {
             setIsOpen(false);
           }}
