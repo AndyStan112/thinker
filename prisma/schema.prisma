@@ -113,35 +113,64 @@ model Subject {
 }
 
 model Deck {
-  id          String    @id @default(cuid())
+  id          String     @id @default(cuid())
   title       String
+  type        String
   description String
   experience  Int
   userId      String
   subjects    Subject[]
   user        User[]
   creatorId   String
-  creator     User      @relation(name: "DeckCreator", fields: [creatorId], references: [id], onDelete: Cascade)
-  Card        Card[]
+  creator     User       @relation(name: "DeckCreator", fields: [creatorId], references: [id], onDelete: Cascade)
+  cards       Card[]
+  tags        Tag[]
+  deckData    DeckData[]
 }
 
 model Card {
+  id        String     @id @default(cuid())
+  content   String
+  type      CardType
+  answer    String[]
+  deckId    String
+  deck      Deck       @relation(fields: [deckId], references: [id])
+  creatorId String
+  creator   User       @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  cardData  CardData[]
+}
+
+model Tag {
+  id   String @id @default(cuid())
+  name String @unique
+  deck Deck[]
+}
+
+model CardData {
   id           String   @id @default(cuid())
-  title        String
-  content      String
-  type         CardType
-  answer       String[]
-  diff         Int
+  card         Card     @relation(fields: [cardId], references: [id])
+  next         Int
+  lastReview   DateTime
   timesShown   Int
   timesCorrect Int
-  deckId       String
-  deck         Deck     @relation(fields: [deckId], references: [id])
-  creatorId    String
-  creator      User     @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  cardId       String
+}
+
+model DeckData {
+  id         String   @id @default(cuid())
+  deck       Deck     @relation(fields: [deckId], references: [id])
+  lastReview DateTime
+  timesShown Int
+  deckId     String
 }
 
 enum CardType {
   Question
   Flashcard
   MultipleChoice
+}
+
+enum DeckType {
+  Flashcard
+  Test
 }
