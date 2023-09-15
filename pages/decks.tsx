@@ -13,10 +13,25 @@ const Decks = (props: any) => {
   const [skip,setSkip]= useState(0)
   const [isEmpty,setIsEmpty] = useState(false)
   const [isLoading, setIsLoading] = useState(false);
+
+  const test= ()=>{ 
+    const elem= document.getElementById("test")
+    const {scrollLeft, clientWidth,scrollWidth } =
+        elem;
+        console.log(scrollLeft+clientWidth +50,scrollWidth)
+        if(scrollLeft+clientWidth+50> scrollWidth )
+        {
+          setIsLoading(true)
+          setSkip((skip)=>skip+10)
+        }
+      }
+
   const getDecks = async () => {
     setIsLoading(true);
     console.log('schimsnbs')
+    
     // await fetch("/api/del/dsa")
+    
     await fetch("/api/decks/get?skip="+skip)
       .then((r) =>
         r.json().then((newDecks:Deck[]) => {
@@ -29,10 +44,16 @@ const Decks = (props: any) => {
   }; 
 
   useEffect( () => {
-    
+    const interval =setInterval(test,1000)
      getDecks();
+     return ()=>{clearInterval(interval)}
   }, []);
   
+  useEffect(()=>{
+   
+    !isEmpty?getDecks().then(()=>{setIsLoading(false);}):setIsLoading(false)
+    
+  },[skip])
   if (session===null) return <LogInCard setIsOpen={()=>{}}/>;
   if (session===undefined) return <p>loading</p>;
 
@@ -59,7 +80,7 @@ const Decks = (props: any) => {
           </button>
         
      <div className="flex mx-10 py-3 items-center"> 
-     <div className="flex gap-2 overflow-x-auto overflow-y-hidden mr-1">
+     <div id="test" className="flex gap-2 overflow-x-auto overflow-y-hidden mr-1">
           {decks.map((deck:Deck)=>(
           <div key={deck.id} className="
            bg-red-400 aspect-[3/4] min-w-[12rem] max-w-[12rem] rounded-xl shadow-lg 
