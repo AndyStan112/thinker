@@ -27,7 +27,7 @@ const History = () => {
 
   return (
     <>
-      <Navbar></Navbar>
+      
 
       <div className="flex justify-center mt-4 ml-6 sm:ml-0 w-4/5">
         {!events.length ? (

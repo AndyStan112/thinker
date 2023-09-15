@@ -19,7 +19,6 @@ const Home = (props: any) => {
       </Head>
 
       {isOpen && <LogInCard setIsOpen={setIsOpen} />}
-      <Navbar />
       <div className="flex flex-col justify-center">
         <section className="flex  flex-col items-center text-center w-full justify-center  bg-slate-300  p-3 gap-2 ">
           <h1>Thinker</h1>

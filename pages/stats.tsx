@@ -73,7 +73,7 @@ const Stats = () => {
   // const comp = events.reduce((acc, curr) => acc + curr.experience, 0);
   return (
     <>
-      <Navbar></Navbar>
+
       <div className="flex justify-center mt-4 ">
         <div className="flex flex-col">
           {(window.innerWidth>= 558? <DateRangePicker

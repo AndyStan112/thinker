@@ -23,7 +23,7 @@ const Quest: FC<{
         .filter((task) => task.finished)
         .reduce((acc, task) => acc + task.experience, 0) +
       (finished ? quest.experience : 0),
-    [quest]
+    [quest,finished]
   );
   const totalQuestExp: number = useMemo(
     () =>
@@ -82,7 +82,7 @@ const Quest: FC<{
               (finished ? "text-fuchsia-600 font-semibold" : "text-slate-500")
             }
           >
-            {currQuestExp + (finished?quest.experience:0)}/{totalQuestExp} +{quest.experience} exp
+            {currQuestExp}/{totalQuestExp} +{quest.experience} exp
           </p>
           <img
             className=""

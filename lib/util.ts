@@ -38,4 +38,14 @@ export const isInRange = (date, startDate, endDate) => {
       new Date(date).getTime() >= new Date(startDate).getTime()
     );
   }
-};
+}; 
+export const getNumberBetween= (min, max)=>  Math.random() * (max - min) + min;
+export const removeDuplicates= (array)=>{
+  const seen = new Set();
+return array.filter(item => {
+  const duplicate = seen.has(item.id);
+  seen.add(item.id);
+  return !duplicate;
+});
+}
+

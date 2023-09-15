@@ -32,7 +32,6 @@ const Quests = (props: any) => {
 
   return (
     <>
-      <Navbar />
       {incompleteError && (
         <Toast className="absolute left-1/2 -translate-x-1/2 bg-red-500 mt-5">
           <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-orange-100 text-orange-500 dark:bg-orange-700 dark:text-orange-200">
