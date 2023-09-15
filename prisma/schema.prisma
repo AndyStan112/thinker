@@ -45,21 +45,20 @@ model Session {
 
 //repair casing
 model User {
-  id            String    @id @default(cuid())
+  id            String     @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?    @unique
   emailVerified DateTime?
   image         String?
-  role          String?   @default("user")
-  experience    Int       @default(0)
+  role          String?    @default("user")
+  experience    Int        @default(0)
   accounts      Account[]
   sessions      Session[]
   quests        Quest[]
   history       History[]
-  decks         Deck[]
+  deckData      DeckData[]
   cards         Card[]
-
-  createdDecks Deck[] @relation(name: "DeckCreator")
+  createdDecks  Deck[]
 }
 
 model VerificationToken {
@@ -106,23 +105,13 @@ model Task {
   quest       Quest   @relation(fields: [questId], references: [id], onDelete: Cascade)
 }
 
-model Subject {
-  id    String @id @default(cuid())
-  name  String
-  decks Deck[]
-}
-
 model Deck {
   id          String     @id @default(cuid())
   title       String
   type        String
   description String
-  experience  Int
-  userId      String
-  subjects    Subject[]
-  user        User[]
   creatorId   String
-  creator     User       @relation(name: "DeckCreator", fields: [creatorId], references: [id], onDelete: Cascade)
+  creator     User       @relation(fields: [creatorId], references: [id], onDelete: Cascade)
   cards       Card[]
   tags        Tag[]
   deckData    DeckData[]
@@ -134,7 +123,7 @@ model Card {
   type      CardType
   answer    String[]
   deckId    String
-  deck      Deck       @relation(fields: [deckId], references: [id])
+  deck      Deck       @relation(fields: [deckId], references: [id], onDelete: Cascade)
   creatorId String
   creator   User       @relation(fields: [creatorId], references: [id], onDelete: Cascade)
   cardData  CardData[]
@@ -142,13 +131,13 @@ model Card {
 
 model Tag {
   id   String @id @default(cuid())
-  name String @unique
+  name String
   deck Deck[]
 }
 
 model CardData {
   id           String   @id @default(cuid())
-  card         Card     @relation(fields: [cardId], references: [id])
+  card         Card     @relation(fields: [cardId], references: [id], onDelete: Cascade)
   next         Int
   lastReview   DateTime
   timesShown   Int
@@ -158,10 +147,12 @@ model CardData {
 
 model DeckData {
   id         String   @id @default(cuid())
-  deck       Deck     @relation(fields: [deckId], references: [id])
+  deck       Deck     @relation(fields: [deckId], references: [id], onDelete: Cascade)
   lastReview DateTime
   timesShown Int
   deckId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
 }
 
 enum CardType {
