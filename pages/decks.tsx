@@ -6,6 +6,7 @@ import LogInCard from "@/Components/auth/LogInCard";
 import { PrismaDeck as Deck } from "@/types/index";
 import Loader from "@/Components/loader";
 import { removeDuplicates } from "@/lib/util";
+import Image from "next/image";
 const Decks = (props: any) => {
   const { data: session }: { data: Session } = useSession();
   const [showCreateDeck, setShowCreateDeck] = useState(false);
@@ -16,6 +17,7 @@ const Decks = (props: any) => {
 
   const test= ()=>{ 
     const elem= document.getElementById("test")
+    if(!elem)return;
     const {scrollLeft, clientWidth,scrollWidth } =
         elem;
         console.log(scrollLeft+clientWidth +50,scrollWidth)
@@ -44,8 +46,8 @@ const Decks = (props: any) => {
   }; 
 
   useEffect( () => {
+    getDecks();
     const interval =setInterval(test,1000)
-     getDecks();
      return ()=>{clearInterval(interval)}
   }, []);
   
@@ -86,7 +88,10 @@ const Decks = (props: any) => {
            bg-red-400 aspect-[3/4] min-w-[12rem] max-w-[12rem] rounded-xl shadow-lg 
            flex flex-col items-center overflow-hidden "> 
           <p>{deck.title}</p> 
-          <p>{deck.description}</p> 
+          <div className="flex gap-4 items-center"> 
+            <p>156</p>
+            <Image width="1" height="1" src="decks.svg" alt="cards" className="h-5 w-5"/>
+          </div>
           <div className="flex flex-row gap-2 flex-wrap mx-2 ">
             {deck.tags.map((tag)=><p className="bg-slate-400 px-1 rounded-md">{tag.name}</p>)}
           </div>
